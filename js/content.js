@@ -25,7 +25,12 @@ function UpdatePictures() {
 		});
 	});
 	
-	$(newBackground).attr('src', 'random_picture.php?' + Math.random());
+	var path = 'random_picture.php?width='  + $(window).width() + '&height=' 
+		+ $(window).height() + '&rand=' + Math.random();
+	
+	console.log(path);
+	
+	$(newBackground).attr('src', path);
 	$('#filemap').attr('src', 'http://www.traphic.nl/generated/verkeersinformatie.png?' + Math.random());
 }
 

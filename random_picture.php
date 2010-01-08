@@ -2,115 +2,86 @@
 
 require_once("config.php");
 
-$myFile = 'cache/photodir.txt';
-$fh = fopen($myFile, 'r');
-$photodir = fread( $fh, filesize($myFile) );
-fclose( $fh );
-
-function makeImagesList($path) 
+function findDirsRecursive($path, array &$dirs) 
 {
-	global $mylist,$mylistctr, $mydirs, $mydirctr;
-	
-    if ( $img_dir = @opendir($path) ) 
+    if ($dir = @opendir($path)) 
 	{
-        while ( false !== ($img_file = readdir($img_dir)) )
+		$dirs[] = $path;
+        while (false !== ($file = readdir($dir)))
 		{
-            if (substr($img_file,strlen($img_file)-4,4) == ".jpg" || substr($img_file,strlen($img_file)-4,4) == ".JPG") 
+			if (is_dir($path . '/' . $file) && $file != '.' && $file != '..' && $file != '/')
 			{
-                $mylist[$mylistctr] = $path . '/' . $img_file;
-                $mylistctr++;
-				if ($mydirctr <= 0)
-				{				
-					$mydirs[$mydirctr] = $path;
-					$mydirctr++;
-				}
-				else
-				{
-					if ($mydirs[$mydirctr-1] != $path)
-					{
-						$mydirs[$mydirctr] = $path;
-						$mydirctr++;
-					}
-				}
-            }
-			
-			if (is_dir($path . '/' . $img_file) && $img_file != '.' && $img_file != '..' && $img_file != '/')
-			{
-				makeImagesList($path . '/' . $img_file);
+				findDirsRecursive($path . '/' . $file, $dirs);
 			}
         }
-        closedir($img_dir);
+        
+        closedir($dir);
     }
+    return $dirs;
 }
 
-$Width = $Settings["display.width"];
-$Height = $Settings["display.height"];
-
-$mylist = array();
-$mylistctr = 0;
-$mydirs = array();
-$mydirctr = 0;
-makeImagesList($photodir);
-
-$newdirmax = 2;
-if ($mylistctr <= 1) $newdirmax = 1;
-if ($mylistctr <= 0) $newdirmax = 0;
-
-if (rand(0,$mylistctr-1) <= $newdirmax)
+function newDir($paths)
 {
-	// new directory
+	$dirs = array();
+	foreach ($paths as $path) findDirsRecursive($path, $dirs);
 	
-	$mylist = array();
-	$mylistctr = 0;
-	$mydirs = array();
-	$mydirctr = 0;
-	
-	for ($i=0; $i<count($ImageDirs); $i++)
+	return $dirs[rand(0, count(dirs)-1)];
+}
+
+
+function findFiles($path)
+{
+	if ($dir = @opendir($path)) 
 	{
-		makeImagesList($ImageDirs[$i]);
+		$files = array();
+        while (false !== ($file = readdir($dir)))
+		{
+			if (strtolower(substr($file,strlen($file)-4,4)) == ".jpg") 
+			{
+				$files[] = $path . '/' . $file;
+			}
+		}
+		
+		closedir($dir);
 	}
 	
-	$x = rand(0,$mydirctr-1);
-	$photodir = $mydirs[$x];
-	
-	$myFile = 'cache/photodir.txt';
-	
-	/*if (file_exists($myfile))
-	{
-		unlink( $myFile );
-	}*/
-	
-	$fh = fopen($myFile, 'w');
-	fwrite( $fh, $photodir );
-	fclose( $fh );
-	
-	$mylist = array();
-	$mylistctr = 0;
-	$mydirs = array();
-	$mydirctr = 0;
-	makeImagesList($photodir);
+	return $files;
 }
 
-$ImageDir = $photodir;
 
-if(isset($_REQUEST['w']) && is_numeric($_REQUEST['w'])) {
-  $Width = $_REQUEST['w'];
-  $Height = ($Height/$Width)*$Width;
+$dir       = @$_SESSION['display.dir'];
+$dircount  = @$_SESSION['display.dircount'];
+
+if (strlen($dir) <= 0 || file_exists($dir)) {
+	$dir      = newDir($ImageDirs);
+	$dircount = 0;
 }
 
-$x = rand(0,$mylistctr-1);
+$files = findFiles($dir);
+while ($dircount > 10 || $dircount >= count($files) || count($files) <= 0) {
+	$dir      = newDir($ImageDirs);
+	$dircount = 0;
+	$files    = findFiles($dir);
+}
 
-$fn = $mylist[$x];
+$file = $files[rand(0, count($files)-1)];
+
+$dircount++;
+$_SESSION['display.dir']      = $dir;
+$_SESSION['display.dircount'] = $dircount;
+
+$width  = $_REQUEST['width'];
+$height = $_REQUEST['height'];
 
 // Info string
-$info = $mylist[$x];
+$info  = $file;
 $info .= $Settings["photo.copyright"];
 
 // make GD work
 header("Content-type: image/jpeg");
-$picture = imagecreatefromjpeg($fn);
+$picture = imagecreatefromjpeg($file);
 
-$img = imagecreatetruecolor($Width, $Height);
+$img = imagecreatetruecolor($width, $height);
 
 $col = imagecolorallocate($img, 255,255,255);
 $shadow = imagecolorallocate($img,0,0,0);
@@ -118,27 +89,14 @@ $shadow = imagecolorallocate($img,0,0,0);
 $src_width  = imagesx($picture);
 $src_height = imagesy($picture);
 
-if ($src_width > $src_height)
-{
-	$ratio_x = ( $src_width / $Width );
-	$ratio_y = $ratio_x;
-}
-else
-{
-	$ratio_y = ( $src_height / $Height );
-	$ratio_x = $ratio_y;
-}
+$ratio = min(($width / $src_width), ($height / $src_height));
 
-if ($ratio_x < 1) $ratio_x = 1;
-if ($ratio_y < 1) $ratio_y = 1;
+$dst_width = round($src_width * $ratio);
+$dst_height = round($src_height * $ratio);
 
-$dst_width = round( $src_width / $ratio_x );
-$dst_height = round( $src_height / $ratio_y );
+imagecopyresampled($img, $picture, ($width - $dst_width)/2, ($height - $dst_height)/2, 0,0, $dst_width, $dst_height, $src_width, $src_height);
 
+imagestring($img,$Settings["photo.fontsize"],($width / 2) - ((strlen($info) * imagefontwidth($Settings["photo.fontsize"])) / 2), $height-20,$info,$shadow);
+imagestring($img,$Settings["photo.fontsize"],($width / 2) - ((strlen($info) * imagefontwidth($Settings["photo.fontsize"])) / 2) - 1, $height-21,$info,$col);
 
-imagecopyresampled($img,$picture, ($Width - $dst_width)/2, ($Height - $dst_height)/2, 0,0, $dst_width, $dst_height, $src_width, $src_height);
-
-imagestring($img,$Settings["photo.fontsize"],($Width / 2) - ((strlen($info) * imagefontwidth($Settings["photo.fontsize"])) / 2),$Height-20,$info,$shadow);
-imagestring($img,$Settings["photo.fontsize"],($Width / 2) - ((strlen($info) * imagefontwidth($Settings["photo.fontsize"])) / 2) - 1,$Height-21,$info,$col);
-
-imagejpeg($img,NULL,100);
+imagejpeg($img, NULL, 100);
