@@ -1,0 +1,10 @@
+Photogenix is a script written in PHP, HTML, CSS and Javascript for running in a full-screen browser on a custom photoframe.
+
+Features:
+- Random photo from multiple directories
+- Clock
+- XML feeds
+- Traffic map of the Netherlands
+
+Credits:
+- Tommy van der Vorst (MisterData): original script

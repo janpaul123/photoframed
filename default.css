@@ -1,0 +1,163 @@
+BODY {
+  background-color:Black;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Bitstream Vera,Vera,Verdana,Arial;
+  cursor: url("dummy_pixel.cur"), wait;
+}
+
+LI {
+  margin-bottom:3px;
+}
+
+DIV#container {
+  width:1024px;
+  height:768px;
+  position:absolute;
+  top:0px;
+  left:0px;
+  overflow:hidden;
+}
+
+IMG#background {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:1024px;
+  height:768px;
+  z-index:-5;
+}
+
+DIV#time {
+  position:absolute;
+  right:50px;
+  top:50px;
+  color:White;
+  font-size:45px;
+}
+
+DIV#time DIV#hours {
+  font-size:70px;
+  float:left;
+  text-shadow: #000000 3px 3px 3px 3px;
+}
+
+DIV#time DIV#minutes {
+  float:left;
+}
+
+DIV#overlay {
+  position:absolute;
+  top:40px;
+  left:0px;
+  height:100px;
+  width:1024px;
+  background-image:url('overlay.png');
+}
+
+DIV#quotes {
+  top:45px;
+  left:10px;
+  color:White;
+  position:absolute;
+}
+
+DIV#quotes IMG#content-logo {
+  float:left;
+  margin-top:10px;
+}
+
+DIV#quotes LI {
+  font-size:11px;
+}
+
+DIV#quotes UL {
+  float:left;
+  display:block;
+  width:340px;
+  overflow:hidden;
+}
+
+DIV#quotes UL#weather {
+  margin-top: 4px;
+}
+
+DIV#files {
+  position:absolute;
+  left:512px;
+  top:155px;
+  width:512px;
+  height:610px;
+  overflow:hidden;
+  display:none;
+}
+
+DIV#files IMG {
+  width:512px;
+  height:610px;
+}
+
+IMG.overlaymap {
+  z-index:-2;
+  opacity:0.9;
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:512px;
+  height:610px;
+}
+
+	#weatherModule {
+		width:200px;
+		height:86px;
+	}
+	
+	#weatherModule table {
+		width:100%;
+	}
+	
+	#weatherModule .header {
+		color:#FFFFFF;
+		text-align:center;
+		font-weight:bold;
+		font-size:13px;
+	}
+	
+	#weatherModule .pic {
+		text-align:center;
+		height:32px;
+	}
+	
+	#weatherModule .temp {
+		text-align:center;
+		height:18px;
+		width:50px;
+		color:#FF0000;
+		font-weight:bold;
+		font-size:12px;
+	}
+	
+	#weatherModule .night {
+		text-align:center;
+		font-size:12px;
+		color:#0000FF;
+		width:50px;
+		font-weight:bold;
+	}
+	
+	#weatherModule .wind {
+		color:#FFFFFF;
+		font-size:11px;
+		font-weight:bold;
+		text-align:center;
+		height:20px;
+	}
+	
+	#weatherModule .first {
+		border-left:0;
+	}
+	
+	div.weatherText {
+		font-size:0.9em;
+	}
