@@ -1,5 +1,6 @@
 <?php
-
+header('Content-type: image/jpeg');
+session_start();
 require_once('config.php');
 
 function findDirsRecursive($path, array &$dirs) 
@@ -31,7 +32,7 @@ function newDir($paths)
 		findDirsRecursive($path, $dirs);
 	}
 	
-	return $dirs[rand(0, count(dirs)-1)];
+	return $dirs[rand(0, count($dirs)-1)];
 }
 
 
@@ -99,7 +100,6 @@ if ($settings['photo.show_filename'])
 $info .= $settings['photo.copyright'];
 
 // make GD work
-header('Content-type: image/jpeg');
 $picture = imagecreatefromjpeg($file);
 
 $img = imagecreatetruecolor($width, $height);

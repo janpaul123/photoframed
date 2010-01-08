@@ -1,4 +1,7 @@
-<?php require("config.php"); ?>
+<?php 
+session_start();
+require_once("config.php"); 
+?>
 <html>
 	<head>
 		<title><?php echo $settings["display.name"] ?></title>
