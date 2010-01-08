@@ -23,8 +23,8 @@ else
 
 $data = simplexml_load_string($xml);
 
-echo('<div class="holder"><div class="center">');
-echo('<img src="' . $feed["logo"].'" class="logo"/>');
+echo('<div class="holder logo"><div class="center">');
+echo('<img src="' . $feed["logo"].'""/>');
 echo('</div></div>');
 
 if (empty($data->channel->item))

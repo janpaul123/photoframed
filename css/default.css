@@ -52,27 +52,18 @@ li {
 	vertical-align            : middle;
 }
 
-#quotes .quote {
-	width                     : 300px;
-}
-
-#quotes .logo {
-	float                     : left;
-	margin                    : 0 30px 0 10px;
-}
-
 #quotes li {
 	font-size                 : 11px;
 }
 
-#quotes div.holder {
+#quotes .holder {
 	float                     : left;
 	overflow                  : hidden;
-	margin                    : 0px;
+	margin                    : 0 15px 0 0;
 	height                    : 100px;
 }
 
-#quotes div.center {
+#quotes .center {
 	overflow                  : hidden;
 	margin                    : 0px;
 	display                   : table-cell;
@@ -80,8 +71,13 @@ li {
 	height                    : 100px;
 }
 
-#quotes ul#weather {
-	margin-top                : 4px;
+#quotes .quote {
+	width                     : 280px;
+}
+
+#quotes .logo {
+	margin-left               : 10px;
+	margin-right              : 20px;
 }
 
 #clock {
