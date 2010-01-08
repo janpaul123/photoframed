@@ -22,7 +22,7 @@ $Site = $RSS[$SiteN];
 
 	$news = simplexml_load_string($newsRSS);
 
-	echo "<img src=\"".$Site["logo"]."\" id='content-logo' width=\"71\" />";
+	echo '<div class="holder"><div class="center"><img src="'.$Site["logo"].'" id="content-logo" width="71" /></div></div>';
 
 	if (empty($news->channel->item))
 	{
@@ -30,7 +30,7 @@ $Site = $RSS[$SiteN];
 		die("<ul><li>De router faalt.. alweer!</li></ul>");
 	}
 	
-	echo "<ul>";
+	echo '<div class="holder quote"><div class="center quote"><ul>';
 	$i = 1;
 	foreach($news->channel->item as $k=>$it) {
 	if($i>6) break;
@@ -43,10 +43,9 @@ $Site = $RSS[$SiteN];
 		echo "<li>".$it->title."</li>";
 	  }
 	  if($i%3==0) {
-	    echo "</ul><ul>";
+	    echo "</ul></div></div>";
+	    echo '<div class="holder quote"><div class="center quote"><ul>';
 	  }
 	  $i++;
 	}
-	echo "</ul>";
-	
-?>
+	echo "</ul></div>";

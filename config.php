@@ -22,10 +22,8 @@ $Settings["files.url"] = "http://www.traphic.nl/generated/verkeersinformatie.png
 
 /** FOTO SETTINGS **/
 //$ImageDirs[] = "F:/Fotos"; // zonder slash aan het einde!
-$ImageDirs[] = "C:/Wallpapers"; 
+$ImageDirs[] = "/Users/janpaul/Desktop/Wallpapers"; 
 
 
 $Settings["photo.copyright"] = "";
 $Settings["photo.fontsize"] = 3; // 1 to 5
-
-?>

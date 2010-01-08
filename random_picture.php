@@ -142,4 +142,3 @@ imagestring($img,$Settings["photo.fontsize"],($Width / 2) - ((strlen($info) * im
 imagestring($img,$Settings["photo.fontsize"],($Width / 2) - ((strlen($info) * imagefontwidth($Settings["photo.fontsize"])) / 2) - 1,$Height-21,$info,$col);
 
 imagejpeg($img,NULL,100);
-?>

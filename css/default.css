@@ -1,0 +1,136 @@
+body {
+	background-color          : black;
+	width                     : 100%;
+	height                    : 100%;
+	overflow                  : hidden;
+	font-family               : Bitstream Vera,Vera,Verdana,Arial;
+	cursor                    : url("../img/dummy_pixel.cur"), none;
+}
+
+li {
+	margin-bottom             : 3px;
+}
+
+#container {
+	width                     : 100%;
+	height                    : 100%;
+	position                  : absolute;
+	top                       : 0px;
+	left                      : 0px;
+	overflow                  : hidden;
+}
+
+#background, #background img {
+	display                   : block;
+	margin                    : auto;
+	z-index                   : -5;
+	position                  : absolute;
+}
+
+#overlay {
+	position                  : absolute;
+	top                       : 40px;
+	left                      : 0px;
+	height                    : 100px;
+	width                     : 100%;
+	background-image          : url('../img/overlay.png');
+	z-index                   : 100;
+	overflow                  : hidden;
+}
+
+#quotes {
+	height                    : 100px;
+	color                     : white;
+	margin                    : 0px;
+	display                   : table-cell;
+	vertical-align            : middle;
+}
+
+#quotes .quote {
+	width                     : 340px;
+}
+
+#quotes img#content-logo {
+	float                     : left;
+	margin-left               : 10px;
+}
+
+#quotes li {
+	font-size                 : 11px;
+}
+
+#quotes div.holder {
+	float                     : left;
+	overflow                  : hidden;
+	margin                    : 0px;
+	height                    : 100px;
+}
+
+#quotes div.center {
+	overflow                  : hidden;
+	margin                    : 0px;
+	display                   : table-cell;
+	vertical-align            : middle;
+	height                    : 100px;
+}
+
+#quotes ul {
+	margin                    : 0px;
+}
+
+#quotes ul#weather {
+	margin-top                : 4px;
+}
+
+#clock {
+	float                     : right;
+	margin-right              : 50px;
+	margin-top                : 7px;
+	color                     : white;
+	font-size                 : 45px;
+}
+
+#clock #hours {
+	font-size                 : 70px;
+	float                     : left;
+	text-shadow               : #000000 3px 3px 3px 3px;
+}
+
+#clock #minutes {
+	float                     : left;
+}
+
+#files {
+	position                  : absolute;
+	right                     : 60px;
+	bottom                    : 10px;
+	width                     : 512px;
+	height                    : 610px;
+	overflow                  : hidden;
+	display                   : none;
+	z-index                   : 5;
+}
+
+#files img {
+	width                     : 512px;
+	height                    : 610px;
+}
+
+img.overlaymap {
+	z-index                   : 10;
+	opacity                   : 0.9;
+	position                  : absolute;
+	top                       : 0px;
+	left                      : 0px;
+	width                     : 512px;
+	height                    : 610px;
+}
+
+
+.valigner
+{
+height:100%;
+width: 0px;
+vertical-align: middle;
+visibility: hidden;
+} 
