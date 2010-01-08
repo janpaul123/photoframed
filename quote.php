@@ -2,8 +2,20 @@
 
 require_once("config.php");
 
+if ($settings['rss.random'])
+{
+	$current = (isset($_SESSION['rss.current']) ? $_SESSION['rss.current'] + 1 : 0);
+	if ($current >= count($settings['rss.feeds'])) $current = 0;
+}
+else
+{
+	$current = rand(0, count($settings['rss.feeds']-1));
+}
+
+$_SESSION['rss.current'] = $current;
+
 // choose a RSS host
-$feed = $settings['rss.feeds'][rand(0,count($settings['rss.feeds'])-1)];
+$feed = $settings['rss.feeds'][$current];
 $cache = 'cache/' . $feed['cache'];
 
 
@@ -45,7 +57,8 @@ $lists = array_chunk($dataArray, 3);
 
 foreach ($lists as $list) 
 {
-	echo('<div class="holder quote"><div class="center quote">');
+	$customWidth = (isset($feed['width']) ? ' style="width: ' . $feed['width'] . '"' : '');
+	echo('<div class="holder quote"' . $customWidth . '><div class="center">');
 	echo('<ul>');
 	foreach ($list as $item)
 	{

@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 error_reporting(0);
 
 $settings = array();
@@ -10,11 +11,26 @@ $settings['display.name']              = 'Fotolijst'; // any name you like
 $settings['js.interval']               = '20000'; // interval for retrieving a new picture/quote; in ms
 
 $settings['rss.feeds']                 = array();
-$settings['rss.feeds'][]               = array('url' => 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen', 'cache' => 'nu.nl.xml', 'logo' => 'content/images/nu.nl.png');
-$settings['rss.feeds'][]               = array('url' => 'http://feeds.feedburner.com/tweakers/mixed', 'cache' => 'tweakers.net.xml', 'logo' => 'content/images/tweakers.net.png');
-$settings['rss.feeds'][]               = array('url' => 'http://rss.weeronline.nl/weernieuws/2/nederland.xml', 'cache' => 'weather.rss.xml', 'logo' => 'content/images/weather.png', 'all' => true);
+$settings['rss.feeds'][]               = array(
+                                               'url'     => 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen', 
+                                               'cache'   => 'nu.nl.xml', 
+                                               'logo'    => 'content/images/nu.nl.png',
+                                              );
+$settings['rss.feeds'][]               = array(
+                                               'url'     => 'http://feeds.feedburner.com/tweakers/mixed', 
+                                               'cache'   => 'tweakers.net.xml', 
+                                               'logo'    => 'content/images/tweakers.net.png',
+                                              );
+$settings['rss.feeds'][]               = array(
+                                               'url'     => 'http://rss.weeronline.nl/weernieuws/2/nederland.xml', 
+                                               'cache'   => 'weather.rss.xml', 
+                                               'logo'    => 'content/images/weather.png', 
+                                               'all'     => true,    // use description instead of title
+                                               'width'   => '480px', // custom width
+                                               );
 
 $settings['rss.error_message']         = 'De router faalt... alweer!';
+$settings['rss.random']                = false;
 
 $settings['files.url']                 = 'http://www.traphic.nl/generated/verkeersinformatie.png';
 

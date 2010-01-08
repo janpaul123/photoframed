@@ -1,11 +1,11 @@
 <?php require("config.php"); ?>
 <html>
 	<head>
-		<title><?php echo $Settings["display.name"] ?></title>
+		<title><?php echo $settings["display.name"] ?></title>
 		<link rel="stylesheet" href="css/default.css" type="text/css" />
 		
 		<script type="text/javascript">
-		var DisplayInterval = <?php echo $Settings["js.interval"] ?>;
+		var DisplayInterval = <?php echo $settings["js.interval"] ?>;
 		</script>
 		<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 		<script type="text/javascript" src="js/content.js"></script>
@@ -23,7 +23,7 @@
 			</div>
 			<div id="files">
 				<img class="overlaymap" src="img/nederland.png"/>
-				<img src="<?php echo $Settings["files.url"]; ?>" id="filemap" />
+				<img src="<?php echo $settings["files.url"]; ?>" id="filemap" />
 			</div>
 		</div>
 	</body>
