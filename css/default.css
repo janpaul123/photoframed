@@ -7,8 +7,14 @@ body {
 	cursor                    : url("../img/dummy_pixel.cur"), none;
 }
 
+ul {
+	margin                    : 0px;
+	padding                   : 0px;
+}
+
 li {
 	margin-bottom             : 3px;
+	margin-left               : 15px;
 }
 
 #container {
@@ -47,12 +53,12 @@ li {
 }
 
 #quotes .quote {
-	width                     : 340px;
+	width                     : 300px;
 }
 
-#quotes img#content-logo {
+#quotes .logo {
 	float                     : left;
-	margin-left               : 10px;
+	margin                    : 0 30px 0 10px;
 }
 
 #quotes li {
@@ -72,10 +78,6 @@ li {
 	display                   : table-cell;
 	vertical-align            : middle;
 	height                    : 100px;
-}
-
-#quotes ul {
-	margin                    : 0px;
 }
 
 #quotes ul#weather {

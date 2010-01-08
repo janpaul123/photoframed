@@ -19,9 +19,8 @@ function UpdatePictures() {
 	$(newBackground).load(function () {
 		$(this).hide();
 		$('#background').append(newBackground);
-		$(this).fadeIn('medium');
-		$(oldBackground).fadeOut('slow', function() {
-			$(this).remove();
+		$(this).fadeIn('medium', function() {
+			$(oldBackground).remove();
 		});
 	});
 	
