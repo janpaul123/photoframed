@@ -65,7 +65,7 @@ if (strlen($dir) <= 0 || file_exists($dir)) {
 }
 
 $files = findFiles($dir);
-while ($dircount > 10 || $dircount >= count($files) || count($files) <= 0) {
+while ($dircount > $settings['photo.max_from_dir'] || $dircount >= count($files) || count($files) <= 0) {
 	$dir      = newDir($settings['photo.dirs']);
 	$dircount = 0;
 	$files    = findFiles($dir);
@@ -88,6 +88,10 @@ if ($settings['photo.show_filename'])
 	$infoFilename = $file;
 	if ($settings['photo.format_filename'])
 	{
+		// strip preceding slash
+		if (in_array(substr($infoFileName, 0, 1), array('/', '\\'))) $infoFileName = substr($infoFileName, 1);
+		
+		// format the filename nicely
 		$infoFilename = str_ireplace($settings['photo.dirs'], '',    $infoFilename);
 		$infoFilename = str_ireplace('.jpg',                  '',    $infoFilename);
 		$infoFilename = str_ireplace(array('/', '\\'),        ' - ', $infoFilename);
@@ -97,6 +101,7 @@ if ($settings['photo.show_filename'])
 	$info .= $infoFilename;
 }
 
+// add the copyright notification
 $info .= $settings['photo.copyright'];
 
 // make GD work

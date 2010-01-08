@@ -1,15 +1,19 @@
 <?php
 
+// initialization
 error_reporting(0);
-
 $settings = array();
-$RSS = array();
-
-// Display size in pixels, only used for picture resizing
-$settings['display.name']              = 'Fotolijst'; // any name you like
-$settings['js.interval']               = '20000'; // interval for retrieving a new picture/quote; in ms
-
 $settings['rss.feeds']                 = array();
+$settings['photo.dirs']                = array();
+
+// name/title of the window
+$settings['display.name']              = 'Fotolijst';
+
+// interval for retrieving a new picture/quote; in ms
+$settings['js.interval']               = '20000';
+
+
+// required settings are 'url' (rss feed itself), 'cache' (filename) and 'logo' (path to image)
 $settings['rss.feeds'][]               = array(
                                                'url'     => 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen', 
                                                'cache'   => 'nu.nl.xml', 
@@ -28,15 +32,29 @@ $settings['rss.feeds'][]               = array(
                                                'width'   => '480px', // custom width
                                                );
 
+// error message to show when the downloading of a feeds fails
 $settings['rss.error_message']         = 'De router faalt... alweer!';
+
+// skip randomly through the feeds
 $settings['rss.random']                = false;
 
+// traffic image
 $settings['files.url']                 = 'http://www.traphic.nl/generated/verkeersinformatie.png';
 
-$settings['photo.dirs']                = array();
+// you can give multiple dirs with images
 $settings['photo.dirs'][]              = '/Users/janpaul/Desktop/Wallpapers/';
  
+// custom copyright notice in the footer
 $settings['photo.copyright']           = '';
-$settings['photo.fontsize']            = 3; // 1 to 5
+
+// font size of the footer text, between 1 to 5 (inclusive)
+$settings['photo.fontsize']            = 3;
+
+// show the filename (or the formatted filename)
 $settings['photo.show_filename']       = true;
+
+// format the filename: slashes will become ' - ' and '.'/'_' will become spaces
 $settings['photo.format_filename']     = true;
+
+// maximum number of photos from one directory before showing a new directory
+$settings['photo.max_from_dir']        = 10;
