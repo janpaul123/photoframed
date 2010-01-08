@@ -4,12 +4,12 @@ require_once("config.php");
 
 if ($settings['rss.random'])
 {
-	$current = (isset($_SESSION['rss.current']) ? $_SESSION['rss.current'] + 1 : 0);
-	if ($current >= count($settings['rss.feeds'])) $current = 0;
+	$current = rand(0, count($settings['rss.feeds'])-1);
 }
 else
 {
-	$current = rand(0, count($settings['rss.feeds']-1));
+	$current = (isset($_SESSION['rss.current']) ? $_SESSION['rss.current'] + 1 : 0);
+	if ($current >= count($settings['rss.feeds'])) $current = 0;
 }
 
 $_SESSION['rss.current'] = $current;
