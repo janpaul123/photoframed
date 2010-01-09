@@ -4,6 +4,7 @@ var PhotoFrame = new function () {
 	var displayTimer          = null;
 	var clockTimer            = null;
 	var displayInterval       = 5000;
+	var overlay               = true;
 	
 	this.updateDisplay = function () {
 		if (PhotoFrame.displayTimer!=null) {
@@ -24,7 +25,7 @@ var PhotoFrame = new function () {
 			$('#background').append($newBackground);
 			$(this).fadeIn('medium', function() {
 				$oldBackground.remove();
-				PhotoFrame.updateText();
+				if (PhotoFrame.overlay) PhotoFrame.updateText();
 			});
 		});
 		
@@ -118,6 +119,10 @@ var PhotoFrame = new function () {
 	
 	this.init = function () {
 		$('body, img, div').click(PhotoFrame.clickEvent);
+		$(window).resize(function (){
+			clearTimeout(PhotoFrame.displayTimer);
+			PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updatePictures() }, 500);
+		});
 	}
 	
 	this.clickEvent = function(event){ 
@@ -128,7 +133,7 @@ var PhotoFrame = new function () {
 	
 	this.start = function () {
 		PhotoFrame.updateDisplay();
-		PhotoFrame.updateTime();
+		if (PhotoFrame.overlay) PhotoFrame.updateTime();
 	}
 	
 	this.setDisplayInterval = function (value) {
@@ -137,5 +142,9 @@ var PhotoFrame = new function () {
 	
 	this.setEnableFX = function (value) {
 		jQuery.fx.off = !value;
+	}
+	
+	this.setEnableOverlay = function (value) {
+		PhotoFrame.overlay = value;
 	}
 };

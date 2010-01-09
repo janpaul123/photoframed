@@ -14,6 +14,7 @@ require_once("init.php");
 		$(document).ready(function(){
 			PhotoFrame.init();
 			PhotoFrame.setDisplayInterval(<?php echo($settings["display.interval"]); ?>);
+			PhotoFrame.setEnableOverlay(<?php echo($settings["display.overlay"]?'true':'false'); ?>);
 			PhotoFrame.setEnableFX(<?php echo($settings["display.fx"]?'true':'false'); ?>);
 			PhotoFrame.start();
 		});
@@ -23,6 +24,7 @@ require_once("init.php");
 	<body>
 		<div id="container">
 			<div id="background"></div>
+			<?php if ($settings["display.overlay"]) { ?>
 			<div id="overlay">
 				<div id="clock">
 					<div class="holder" id="hours"></div>
@@ -30,6 +32,7 @@ require_once("init.php");
 				</div>
 				<div id="quotes"></div>
 			</div>
+			<?php } ?>
 			<div id="files">
 				<img class="overlaymap" src="img/nederland.png"/>
 				<img src="<?php echo $settings["files.url"]; ?>" id="filemap" />

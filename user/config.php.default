@@ -15,6 +15,9 @@ $settings['display.interval']          = '20000';
 // enable or disable effects
 $settings['display.fx']                = true;
 
+// enable or disable the overlay
+$settings['display.overlay']           = true;
+
 
 // required settings are 'url' (rss feed itself), 'cache' (filename) and 'logo' (path to image)
 $settings['rss.feeds'][]               = array(
