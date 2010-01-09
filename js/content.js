@@ -1,4 +1,7 @@
-var _Timer=null;
+var hours          = 0;
+var minutes        = 0;
+var displayTimer   = null;
+var clockTimer     = null;
 
 function UpdateText() {
 	var $oldQuote = $('#quotes > .block');
@@ -21,11 +24,47 @@ function UpdateText() {
 }
 
 function UpdateTime() {
-  var date = new Date();
-  document.getElementById('hours').innerHTML = (date.getHours());
-  var minutes = ""+date.getMinutes();
-  if(minutes.length<2) { minutes = "0"+minutes;}
-  document.getElementById('minutes').innerHTML = (minutes);
+	var date = new Date();
+	
+	if(clockTimer!=null) {
+		clearTimeout(clockTimer);
+		clockTimer = null;
+	}
+	clockTimer = setTimeout("UpdateTime()", 5000);
+	
+	if (date.getMinutes() != minutes) {
+		minutes = date.getMinutes();
+		var $oldMinutes = $('#minutes > .number');
+		var $newMintues = $('<div></div>');
+		
+		$newMintues.addClass('number');
+		$newMintues.text(''+minutes);
+		$newMintues.css('top', '120px');
+		$('#minutes').append($newMintues);
+		$newMintues.animate({
+			top: "0px"
+		}, "medium", null, function() {
+			if (date.getHours() != hours) {
+				hours = date.getHours();
+				var $oldHours = $('#hours > .number');
+				var $newHours = $('<div></div>');
+				
+				$newHours.addClass('number');
+				$newHours.text(''+hours);
+				$newHours.css('top', '120px');
+				$('#hours').append($newHours);
+				$newHours.animate({
+					top: "0px"
+				}, "medium");
+				$oldHours.fadeOut("medium", function() {
+					$(this).remove();
+				});
+			}
+		});
+		$oldMinutes.fadeOut("medium", function() {
+			$(this).remove();
+		});
+	}
 }
 
 function UpdatePictures() {
@@ -49,15 +88,16 @@ function UpdatePictures() {
 
 function DisplayStart() {
   DisplayUpdate();
+  UpdateTime();
 }
 
 function DisplayUpdate() {
-  if(_Timer!=null) {
-    window.clearTimeout(_Timer);
-    _Timer = null;
+  if(displayTimer!=null) {
+    clearTimeout(displayTimer);
+    displayTimer = null;
   }
-  UpdateTime();
+  
   UpdatePictures();
   UpdateText();
-  _Timer = window.setTimeout("DisplayUpdate()", DisplayInterval);
+  displayTimer = setTimeout("DisplayUpdate()", DisplayInterval);
 }

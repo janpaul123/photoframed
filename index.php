@@ -19,8 +19,8 @@ require_once("config.php");
 			<div id="background"></div>
 			<div id="overlay">
 				<div id="clock">
-					<div id="hours"></div>
-					<div id="minutes"></div>
+					<div class="holder" id="hours"></div>
+					<div class="holder" id="minutes"></div>
 				</div>
 				<div id="quotes"></div>
 			</div>

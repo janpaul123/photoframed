@@ -89,21 +89,37 @@ li {
 }
 
 #clock {
-	float                     : right;
-	margin-right              : 50px;
-	margin-top                : 7px;
+	position                  : fixed;
 	color                     : white;
-	font-size                 : 45px;
+	overflow                  : hidden;
+	width                     : 100px;
+	right                     : 50px;
 }
 
 #clock #hours {
-	font-size                 : 70px;
 	float                     : left;
+	width                     : 35px;
+}
+
+#clock .number {
 	text-shadow               : #000000 3px 3px 3px 3px;
+	padding-top               : 8px;
+	position                  : absolute;
+}
+
+#clock #hours .number {
+	font-size                 : 70px;
+	text-shadow               : #000000 3px 3px 3px 3px;
+	padding-top               : 5px;
 }
 
 #clock #minutes {
 	float                     : left;
+	width                     : 30px;
+}
+
+#clock #minutes .number {
+	font-size                 : 45px;
 }
 
 #files {

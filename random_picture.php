@@ -58,6 +58,7 @@ function findFiles($path)
 
 $dir       = @$_SESSION['display.dir'];
 $dircount  = @$_SESSION['display.dircount'];
+$previous  = @$_SESSION['display.previous'];
 
 if (strlen($dir) <= 0 || file_exists($dir)) {
 	$dir      = newDir($settings['photo.dirs']);
@@ -65,17 +66,24 @@ if (strlen($dir) <= 0 || file_exists($dir)) {
 }
 
 $files = findFiles($dir);
-while ($dircount > $settings['photo.max_from_dir'] || $dircount >= count($files) || count($files) <= 0) {
-	$dir      = newDir($settings['photo.dirs']);
-	$dircount = 0;
-	$files    = findFiles($dir);
+if ($dircount > $settings['photo.max_from_dir'] || $dircount >= count($files)) {
+	$tries        = 0;
+	do {
+		$dir      = newDir($settings['photo.dirs']);
+		$dircount = 0;
+		$files    = findFiles($dir);
+	} while ((count($files) <= 0 || $previousDir == $dir) && $tries++ < 100);
 }
 
-$file = $files[rand(0, count($files)-1)];
+do
+{
+	$file = $files[rand(0, count($files)-1)];
+} while ($file == $previous && count($files) > 1);
 
 $dircount++;
 $_SESSION['display.dir']      = $dir;
 $_SESSION['display.dircount'] = $dircount;
+$_SESSION['display.previous']  = $file;
 
 $width  = $_REQUEST['width'];
 $height = $_REQUEST['height'];

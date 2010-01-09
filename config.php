@@ -17,17 +17,17 @@ $settings['js.interval']               = '20000';
 $settings['rss.feeds'][]               = array(
                                                'url'     => 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen', 
                                                'cache'   => 'nu.nl.xml', 
-                                               'logo'    => 'content/images/nu.nl.png',
+                                               'logo'    => 'user/feedpics/nu.nl.png',
                                               );
 $settings['rss.feeds'][]               = array(
                                                'url'     => 'http://feeds.feedburner.com/tweakers/mixed', 
                                                'cache'   => 'tweakers.net.xml', 
-                                               'logo'    => 'content/images/tweakers.net.png',
+                                               'logo'    => 'user/feedpics/tweakers.net.png',
                                               );
 $settings['rss.feeds'][]               = array(
                                                'url'     => 'http://rss.weeronline.nl/weernieuws/2/nederland.xml', 
                                                'cache'   => 'weather.rss.xml', 
-                                               'logo'    => 'content/images/weather.png', 
+                                               'logo'    => 'user/feedpics/weather.png', 
                                                'all'     => true,    // use description instead of title
                                                'width'   => '480px', // custom width
                                                );
@@ -41,8 +41,8 @@ $settings['rss.random']                = false;
 // traffic image
 $settings['files.url']                 = 'http://www.traphic.nl/generated/verkeersinformatie.png';
 
-// you can give multiple dirs with images
-$settings['photo.dirs'][]              = '/Users/janpaul/Desktop/Wallpapers/';
+// you can give multiple dirs with images, ie. C:\Photos (Win) or /photos (Linux)
+$settings['photo.dirs'][]              = 'user/photos/';
  
 // custom copyright notice in the footer
 $settings['photo.copyright']           = '';
