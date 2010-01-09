@@ -181,6 +181,7 @@ img {
 	border-radius             : 20px;
 	-moz-border-radius        : 20px;
 	display                   : none;
+	cursor                    : auto;
 }
 
 #about img {
@@ -202,6 +203,7 @@ img {
 	-moz-border-radius        : 20px;
 	display                   : none;
 	padding                   : 10px;
+	cursor                    : auto;
 }
 
 #help td.key {

@@ -241,12 +241,12 @@ var PhotoFrame = new function () {
 	}
 	
 	this.showHelp = function () {
-		if (!PhotoFrame.helpShown) $('#help').fadeIn('slow');
+		if (!PhotoFrame.helpShown) $('#help').fadeIn('medium');
 		PhotoFrame.helpShown = true;
 	}
 	
 	this.hideHelp = function () {
-		if (PhotoFrame.helpShown)  $('#help').fadeOut('slow');
+		if (PhotoFrame.helpShown)  $('#help').fadeOut('medium');
 		PhotoFrame.helpShown = false;
 	}
 	
