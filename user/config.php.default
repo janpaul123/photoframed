@@ -19,6 +19,9 @@ $settings['display.fx']                = true;
 // enable or disable the bar
 $settings['display.bar']               = true;
 
+// enable or disable about box
+$settings["display.about"]             = true;
+
 // key options
 $settings['display.keys']['t']         = 'PhotoFrame.toggleTraffic()';
 $settings['display.keys'][' ']         = 'PhotoFrame.updateDisplay()';

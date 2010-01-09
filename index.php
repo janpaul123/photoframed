@@ -35,6 +35,8 @@ require_once("init.php");
 				return 0;
 			});
 
+			<?php if($settings["display.about"]) echo('$("#about").show("fast");'); ?>
+			
 			PhotoFrame.start();
 		});
 		</script>
@@ -55,6 +57,12 @@ require_once("init.php");
 			<div id="traffic">
 				<img class="map" src="<?php echo $settings["traffic.map"]; ?>"/>
 				<img class="overlay" src="<?php echo $settings["traffic.overlay"]; ?>" />
+			</div>
+			<div id="about">
+				<a href="http://github.com/janpaul123/photogenix" target="_blank">
+					<img src="img/logo.png"/>
+					github.com/janpaul123/photogenix
+				</a>
 			</div>
 		</div>
 	</body>

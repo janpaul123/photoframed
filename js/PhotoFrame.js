@@ -183,6 +183,12 @@ var PhotoFrame = new function () {
 		PhotoFrame.trafficShown = false;
 	}
 	
+	this.hideAbout = function () {
+		setTimeout(function() {
+			$('#about').fadeOut('slow');
+		}, 3000);
+	}
+	
 	this.init = function () {
 		$('#clock').click(PhotoFrame.clickEvent);
 		
@@ -204,6 +210,7 @@ var PhotoFrame = new function () {
 		PhotoFrame.updateDisplay();
 		if (PhotoFrame.bar) PhotoFrame.updateTime();
 		PhotoFrame.updateTraffic();
+		PhotoFrame.hideAbout();
 	}
 	
 	this.setDisplayInterval = function (value) {
