@@ -96,13 +96,21 @@ if ($settings['photo.show_filename'])
 	$infoFilename = $file;
 	if ($settings['photo.format_filename'])
 	{
-		// strip preceding slash
-		if (in_array(substr($infoFileName, 0, 1), array('/', '\\'))) $infoFileName = substr($infoFileName, 1);
+		// convert all paths to one format of slashes and add trailing slash
+		$newPhotodirs = array();
+		foreach ($settings['photo.dirs'] as $photodir)
+		{
+			$newPhotodir = str_ireplace('\\', '/', $photodir);
+			if (substr($newPhotodir, -1) != '/') $newPhotodir .= '/';
+			$newPhotodirs[] = $newPhotodir;
+		}
+		
+		$infoFileName = str_ireplace('\\', '/', $infoFileName);
 		
 		// format the filename nicely
-		$infoFilename = str_ireplace($settings['photo.dirs'], '',    $infoFilename);
+		$infoFilename = str_ireplace($newPhotodirs,           '',    $infoFilename);
 		$infoFilename = str_ireplace('.jpg',                  '',    $infoFilename);
-		$infoFilename = str_ireplace(array('/', '\\'),        ' - ', $infoFilename);
+		$infoFilename = str_ireplace('/',                     ' - ', $infoFilename);
 		$infoFilename = str_ireplace(array('_', '.'),         ' ',   $infoFilename);
 	}
 	

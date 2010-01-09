@@ -4,7 +4,8 @@ body {
 	height                    : 100%;
 	overflow                  : hidden;
 	font-family               : Bitstream Vera,Vera,Verdana,Arial;
-	cursor                    : url("../img/dummy_pixel.cur"), none;
+	cursor                    : none;
+	color                     : white;
 }
 
 ul {
@@ -15,6 +16,15 @@ ul {
 li {
 	margin-bottom             : 3px;
 	margin-left               : 15px;
+}
+
+a {
+	text-decoration           : none;
+	color                     : white;
+}
+
+a:hover, a:focus {
+	text-decoration           : underline;
 }
 
 #container {
@@ -42,6 +52,7 @@ li {
 	background-image          : url('../img/overlay.png');
 	z-index                   : 100;
 	overflow                  : hidden;
+	cursor                    : auto;
 }
 
 #overlay .holder {
@@ -101,15 +112,14 @@ li {
 }
 
 #clock .number {
-	text-shadow               : #000000 3px 3px 3px 3px;
 	color                     : white;
 	padding-top               : 8px;
 	position                  : absolute;
+	text-shadow               : #222222 3px 3px 3px;
 }
 
 #clock #hours .number {
 	font-size                 : 70px;
-	text-shadow               : #000000 3px 3px 3px 3px;
 	right                     : 100px;
 }
 

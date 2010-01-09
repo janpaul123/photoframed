@@ -12,7 +12,7 @@ var PhotoFrame = new function () {
 			PhotoFrame.displayTimer = null;
 		}
 		PhotoFrame.updatePictures();
-		PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updatePictures() }, PhotoFrame.displayInterval);
+		PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updateDisplay() }, PhotoFrame.displayInterval);
 	}
 	
 	this.updatePictures = function() {
@@ -118,10 +118,10 @@ var PhotoFrame = new function () {
 	
 	
 	this.init = function () {
-		$('body, img, div').click(PhotoFrame.clickEvent);
+		$('#clock').click(PhotoFrame.clickEvent);
 		$(window).resize(function (){
 			clearTimeout(PhotoFrame.displayTimer);
-			PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updatePictures() }, 500);
+			PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updateDisplay() }, 500);
 		});
 	}
 	

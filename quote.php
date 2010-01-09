@@ -54,7 +54,8 @@ if (empty($data->channel->item))
 
 $dataArray = array();
 foreach ($data->channel->item as $item) {
-	$dataArray[] = (isset($feed['all']) && $feed['all'] ? $item->description : $item->title);
+	$text = (isset($feed['all']) && $feed['all'] ? $item->description : $item->title);
+	$dataArray[] = array('text'=>$text, 'url'=>$item->link);
 }
 
 $lists = array_chunk($dataArray, 3);
@@ -66,7 +67,13 @@ foreach ($lists as $list)
 	echo('<ul>');
 	foreach ($list as $item)
 	{
-		echo('<li>' . $item . '</li>');
+		$html = $item['text'];
+		if (!empty($item['url']))
+		{
+			$html = '<a href="' . $item['url'] . '" target="_blank">' . $html . '</a>';
+		}
+		
+		echo('<li>' . $html . '</li>');
 	}
 	echo('</ul>');
 	echo('</div></div>');
