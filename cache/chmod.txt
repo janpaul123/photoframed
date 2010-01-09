@@ -1,0 +1,8 @@
+Make sure you give this directory write rights.
+You can do that by going to the photogenix folder (cd ..) and doing:
+
+chmod 0777 -R cache
+
+Or, if that fails, please try
+
+sudo chmod 0777 -R cache
