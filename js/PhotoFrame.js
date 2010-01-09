@@ -319,7 +319,7 @@ var PhotoFrame = new function () {
 		
 		setTimeout(function() {
 			PhotoFrame.hideAbout();
-		}, 3000);
+		}, 4000);
 	}
 	
 	this.setDisplayInterval = function (value) {

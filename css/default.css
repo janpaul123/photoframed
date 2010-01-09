@@ -183,6 +183,11 @@ img {
 	display                   : none;
 }
 
+#about img {
+	width                     : 340px;
+	height                    : 270px;
+}
+
 #help {
 	position                  : fixed;
 	z-index                   : 100;
