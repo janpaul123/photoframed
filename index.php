@@ -41,10 +41,10 @@ require_once("init.php");
 				var letter = String.fromCharCode(event.which);
 				
 				<?php 
-					foreach ($settings['display.keys'] as $key => $function)
+					foreach ($settings['display.keys'] as $key => $options)
 					{
 						echo('if (letter == "' . substr($key, 0, 1) .'") {');
-						echo($function . ';');
+						echo($options['function'] . ';');
 						echo('}');
 					}
 				?>
@@ -88,6 +88,22 @@ require_once("init.php");
 					<img src="img/logo.png"/>
 					github.com/janpaul123/photogenix
 				</a>
+				<br/>
+				press <strong>h</strong> for keyboard commands 
+			</div>
+			<div id="help">
+				<table>
+				<?php 
+					foreach ($settings['display.keys'] as $key => $options)
+					{
+						echo('<tr><td class="key">');
+						echo('<strong>' . (isset($options['key']) ? $options['key'] : $key) .'</strong>');
+						echo('</td><td class="title">');
+						echo($options['title'] . '<br />');
+						echo('</tr>');
+					}
+				?>
+				</table>
 			</div>
 			<div id="webcams">
 				<?php 

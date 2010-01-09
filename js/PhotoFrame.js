@@ -31,6 +31,7 @@ var PhotoFrame = new function () {
 	var webcamsInterval       = 5000;
 	var webcamsShown          = false;
 	var aboutShown            = false;
+	var helpShown             = false;
 	
 	this.updateDisplay = function () {
 		if (PhotoFrame.displayTimer!=null) {
@@ -226,8 +227,27 @@ var PhotoFrame = new function () {
 	}
 	
 	this.hideAbout = function () {
-		if (PhotoFrame.aboutShown) $('#about').fadeOut('slow');
+		if (PhotoFrame.aboutShown)  $('#about').fadeOut('slow');
 		PhotoFrame.aboutShown = false;
+	}
+	
+	this.toggleHelp = function () {
+		if (PhotoFrame.helpShown) {
+			PhotoFrame.hideHelp();
+		}
+		else {
+			PhotoFrame.showHelp();
+		}
+	}
+	
+	this.showHelp = function () {
+		if (!PhotoFrame.helpShown) $('#help').fadeIn('slow');
+		PhotoFrame.helpShown = true;
+	}
+	
+	this.hideHelp = function () {
+		if (PhotoFrame.helpShown)  $('#help').fadeOut('slow');
+		PhotoFrame.helpShown = false;
 	}
 	
 	this.updateWebcams = function() {
@@ -283,6 +303,7 @@ var PhotoFrame = new function () {
 		PhotoFrame.trafficShown = false;
 		PhotoFrame.webcamsShown = false;
 		PhotoFrame.aboutShown   = false;
+		PhotoFrame.helpShown    = false;
 	}
 	
 	this.clickEvent = function(event){ 

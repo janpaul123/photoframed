@@ -173,7 +173,7 @@ img {
 	left                      : 50%;
 	top                       : 50%;
 	width                     : 340px;
-	height                    : 310px;
+	height                    : 330px;
 	text-align                : center;
 	margin-left               : -170px;
 	margin-top                : -150px;
@@ -182,6 +182,34 @@ img {
 	-moz-border-radius        : 20px;
 	display                   : none;
 }
+
+#help {
+	position                  : fixed;
+	z-index                   : 100;
+	opacity                   : 0.9;
+	left                      : 50%;
+	bottom                    : 25%;
+	width                     : 400px;
+	text-align                : center;
+	margin-left               : -200px;
+	background-color          : #151515;
+	border-radius             : 20px;
+	-moz-border-radius        : 20px;
+	display                   : none;
+	padding                   : 10px;
+}
+
+#help td.key {
+	text-align                : right;
+	width                     : 130px;
+}
+
+#help td.title {
+	text-align                : left;
+	width                     : 270px;
+	padding-left              : 20px;
+}
+
 
 #webcams {
 	position                  : absolute;

@@ -42,10 +42,27 @@ $settings['display.bar']               = true;
 $settings["display.about"]             = true;
 
 // key options
-$settings['display.keys']['t']         = 'PhotoFrame.toggleTraffic()';
-$settings['display.keys']['w']         = 'PhotoFrame.toggleWebcams()';
-$settings['display.keys']['?']         = 'PhotoFrame.toggleAbout()';
-$settings['display.keys'][' ']         = 'PhotoFrame.updateDisplay()';
+$settings['display.keys']['h']         = array(
+                                               'function'   => 'PhotoFrame.toggleHelp()',
+                                               'title'      => 'Toggle help box',
+                                              );
+$settings['display.keys']['t']         = array(
+                                               'function'   => 'PhotoFrame.toggleTraffic()', 
+                                               'title'      => 'Toggle traffic map',
+                                              );
+$settings['display.keys']['w']         = array(
+                                               'function'   => 'PhotoFrame.toggleWebcams()',
+                                               'title'      => 'Toggle webcams',
+                                              );
+$settings['display.keys']['?']         = array(
+                                               'function'   => 'PhotoFrame.toggleAbout()',
+                                               'title'      => 'Toggle about box',
+                                              );
+$settings['display.keys'][' ']         = array(
+                                               'function'   => 'PhotoFrame.updateDisplay()',
+                                               'title'      => 'Update display',
+                                               'key'        => 'space',
+                                              );
 /*
  * Some examples:
  * - PhotoFrame.toggleTraffic(),  PhotoFrame.showTraffic(),      PhotoFrame.hideTraffic()
