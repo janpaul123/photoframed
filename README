@@ -4,13 +4,27 @@ Features:
  - Random photo from multiple directories
  - Clock
  - XML feeds
- - Traffic map of the Netherlands
+ - Slick animations
+ - Traffic map of the Netherlands (as for now: broken)
 
 Credits:
  - Tommy van der Vorst (MisterData): original script
 
 Installation instructions:
  - Set up a webserver (apache or WAMP or whatever)
- - Configure the script using config.php
+ - Copy user/config.php.default to user/config.php and adjust it to your preferences
+ - Make sure that the cache directory is writeable (sudo chmod -R 0777 cache)
  - Set the right path in index.xul
  - Use the following command: "firefox -chrome http://localhost/photogenix/index.xul"
+
+Upgrading instructions:
+ - Make a backup of your user folder
+ - Throw away the photogenix directory
+ - Copy the new directory
+ - Make sure that the cache directory is writeable (sudo chmod -R 0777 cache)
+ - Put back the user folder
+ - Check config.php.default to see new options
+ 
+Notes:
+ - Works best in Firefox, but *could* work just fine in other browsers
+ - The animations can be quite heavy for slow machines, you can disable them in the config
