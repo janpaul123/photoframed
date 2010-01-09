@@ -13,13 +13,15 @@ function UpdateText() {
 		$newQuote.css('top', '120px');
 		$('#quotes').append($newQuote);
 		setTimeout(function() {
-		$newQuote.animate({
-			top: "0px"
-		}, "medium");
-		$oldQuote.fadeOut("medium", function() {
-			$(this).remove();
-		});
-		}, 300);
+			$newQuote.animate({
+				top: "0px"
+			}, "medium");
+			setTimeout(function() {
+				$oldQuote.fadeOut("fast", function() {
+					$(this).remove();
+				});
+			}, 150);
+		}, 200);
 	});
 }
 
@@ -78,6 +80,7 @@ function UpdatePictures() {
 		$('#background').append($newBackground);
 		$(this).fadeIn('medium', function() {
 			$oldBackground.remove();
+			UpdateText();
 		});
 	});
 	
@@ -100,6 +103,5 @@ function DisplayUpdate() {
   }
   
   UpdatePictures();
-  UpdateText();
   displayTimer = setTimeout("DisplayUpdate()", DisplayInterval);
 }

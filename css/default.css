@@ -62,7 +62,7 @@ li {
 #quotes {
 	height                    : 100px;
 	color                     : white;
-	margin                    : 0px;
+	margin                    : 0;
 	display                   : table-cell;
 	vertical-align            : middle;
 }
@@ -86,6 +86,7 @@ li {
 /* to combine with #overlay .holder */
 #quotes .block {
 	position                  : absolute;
+	margin                    : 0 170px 0 0;
 }
 
 #clock {
