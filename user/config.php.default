@@ -5,6 +5,7 @@ error_reporting(0);
 $settings = array();
 $settings['rss.feeds']                 = array();
 $settings['photo.dirs']                = array();
+$settings['display.keys']              = array();         
 
 // name/title of the window
 $settings['display.name']              = 'Fotolijst';
@@ -15,9 +16,17 @@ $settings['display.interval']          = '20000';
 // enable or disable effects
 $settings['display.fx']                = true;
 
-// enable or disable the overlay
-$settings['display.overlay']           = true;
+// enable or disable the bar
+$settings['display.bar']               = true;
 
+// key options
+$settings['display.keys']['t']         = 'PhotoFrame.toggleTraffic()';
+$settings['display.keys'][' ']         = 'PhotoFrame.updateDisplay()';
+/*
+ * Some examples:
+ * - PhotoFrame.toggleTraffic(), PhotoFrame.showTraffic(), PhotoFrame.hideTraffic()
+ * - PhotoFrame.updateDisplay(), PhotoFrame.updateBackground(), PhotoFrame.updateText() 
+ */
 
 // required settings are 'url' (rss feed itself), 'cache' (filename) and 'logo' (path to image)
 $settings['rss.feeds'][]               = array(
@@ -44,8 +53,11 @@ $settings['rss.error_message']         = 'De router faalt... alweer!';
 // skip randomly through the feeds
 $settings['rss.random']                = false;
 
-// traffic image
-$settings['files.url']                 = 'http://www.traphic.nl/generated/verkeersinformatie.png';
+// traffic map image, will be refreshed every minute
+$settings['traffic.map']               = 'user/maps/nederland.png';
+
+// traffic overlay image, will be refreshed every minute (this one is optional)
+$settings['traffic.overlay']           = 'http://www.traphic.nl/generated/verkeersinformatie.png';
 
 // you can give multiple dirs with images, ie. C:\Photos (Win) or /photos (Linux)
 $settings['photo.dirs'][]              = 'user/photos/';

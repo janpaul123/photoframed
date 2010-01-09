@@ -1,7 +1,5 @@
 body {
 	background-color          : black;
-	width                     : 100%;
-	height                    : 100%;
 	overflow                  : hidden;
 	font-family               : Bitstream Vera,Vera,Verdana,Arial;
 	cursor                    : none;
@@ -43,26 +41,26 @@ a:hover, a:focus {
 	position                  : absolute;
 }
 
-#overlay {
+#bar {
 	position                  : absolute;
 	top                       : 40px;
 	left                      : 0px;
 	height                    : 100px;
 	width                     : 100%;
-	background-image          : url('../img/overlay.png');
+	background-image          : url('../img/bar.png');
 	z-index                   : 100;
 	overflow                  : hidden;
 	cursor                    : auto;
 }
 
-#overlay .holder {
+#bar .holder {
 	float                     : left;
 	overflow                  : hidden;
 	margin                    : 0;
 	height                    : 100px;
 }
 
-#overlay .center {
+#bar .center {
 	overflow                  : hidden;
 	margin                    : 0px;
 	display                   : table-cell;
@@ -82,19 +80,19 @@ a:hover, a:focus {
 	font-size                 : 11px;
 }
 
-/* to combine with #overlay .holder */
+/* to combine with #bar .holder */
 #quotes .quote {
 	width                     : 280px;
 	margin-right              : 15px;
 }
 
-/* to combine with #overlay .holder */
+/* to combine with #bar .holder */
 #quotes .logo {
 	margin-left               : 15px;
 	margin-right              : 25px;
 }
 
-/* to combine with #overlay .holder */
+/* to combine with #bar .holder */
 #quotes .block {
 	position                  : absolute;
 	margin-right              : 170px;
@@ -132,28 +130,17 @@ a:hover, a:focus {
 	font-size                 : 45px;
 }
 
-#files {
+#traffic img {
 	position                  : absolute;
 	right                     : 60px;
 	bottom                    : 10px;
-	width                     : 512px;
-	height                    : 610px;
-	overflow                  : hidden;
-	display                   : none;
+	max-width                 : 75%;
+	max-height                : 75%;
 	z-index                   : 5;
+	display                   : none;
 }
 
-#files img {
-	width                     : 512px;
-	height                    : 610px;
-}
-
-img.overlaymap {
+#traffic img.overlay {
 	z-index                   : 10;
 	opacity                   : 0.9;
-	position                  : absolute;
-	top                       : 0px;
-	left                      : 0px;
-	width                     : 512px;
-	height                    : 610px;
 }

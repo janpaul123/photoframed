@@ -3,19 +3,23 @@ var PhotoFrame = new function () {
 	var minutes               = 0;
 	var displayTimer          = null;
 	var clockTimer            = null;
+	var trafficTimer          = null;
 	var displayInterval       = 5000;
-	var overlay               = true;
+	var bar                   = true;
+	var trafficShown          = false;
+	var trafficMap            = 'user/maps/nederland.png';
+	var trafficOverlay        = 'http://www.traphic.nl/generated/verkeersinformatie.png';
 	
 	this.updateDisplay = function () {
 		if (PhotoFrame.displayTimer!=null) {
 			clearTimeout(PhotoFrame.displayTimer);
 			PhotoFrame.displayTimer = null;
 		}
-		PhotoFrame.updatePictures();
+		PhotoFrame.updateBackground();
 		PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updateDisplay() }, PhotoFrame.displayInterval);
 	}
 	
-	this.updatePictures = function() {
+	this.updateBackground = function() {
 		var $oldBackground = $('#background img');
 		var $newBackground = $(new Image());
 		
@@ -25,15 +29,59 @@ var PhotoFrame = new function () {
 			$('#background').append($newBackground);
 			$(this).fadeIn('medium', function() {
 				$oldBackground.remove();
-				if (PhotoFrame.overlay) PhotoFrame.updateText();
+				if (PhotoFrame.bar) PhotoFrame.updateText();
 			});
 		});
 		
 		var path = 'random_picture.php?width='  + $(window).width() + '&height=' 
-			+ $(window).height() + '&rand=' + Math.random();
+			+ $(window).height() + '&rand=' + (new Date().getTime());
 		
 		$newBackground.attr('src', path);
-		$('#filemap').attr('src', 'http://www.traphic.nl/generated/verkeersinformatie.png?' + Math.random());
+	}
+	
+	this.updateTraffic = function() {
+		if (PhotoFrame.trafficTimer!=null) {
+			clearTimeout(PhotoFrame.trafficTimer);
+			PhotoFrame.trafficTimer = null;
+		}
+		
+		if (PhotoFrame.trafficMap.indexOf('http') > -1) {
+			var $oldMap = $('#traffic img.map');
+			var $newMap = $(new Image());
+			
+			$newMap.load(function () {
+				$(this).hide();
+				$(this).addClass('map');
+				$('#traffic').append($newMap);
+				
+				if (PhotoFrame.trafficShown) $(this).show();
+				
+				$oldMap.remove();
+			});
+			
+			$newMap.attr('src', PhotoFrame.trafficMap 
+					+ (PhotoFrame.trafficMap.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime()));
+		}
+		
+		if (PhotoFrame.trafficOverlay.indexOf('http') > -1) {
+			var $oldOverlay = $('#traffic img.overlay');
+			var $newOverlay = $(new Image());
+			
+			$newOverlay.load(function () {
+				$(this).hide();
+				$(this).addClass('overlay');
+				$('#traffic').append($newOverlay);
+				
+				if (PhotoFrame.trafficShown) $(this).show();
+				
+				$oldOverlay.remove();
+			});
+			
+			$newOverlay.attr('src', PhotoFrame.trafficOverlay 
+					+ (PhotoFrame.trafficOverlay.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime()));
+		}
+		
+		PhotoFrame.trafficTimer = setTimeout(function() { PhotoFrame.updateTraffic() }, 60000);
 	}
 	
 	this.updateText = function () {
@@ -42,7 +90,7 @@ var PhotoFrame = new function () {
 		
 		$newQuote.addClass('holder');
 		$newQuote.addClass('block');
-		$newQuote.load('quote.php', null, function() {
+		$newQuote.load('quote.php', {timestamp: (new Date().getTime())}, function() {
 			$newQuote.css('top', '120px');
 			$('#quotes').append($newQuote);
 			setTimeout(function() {
@@ -116,13 +164,34 @@ var PhotoFrame = new function () {
 		});
 	}
 	
+	this.toggleTraffic = function () {
+		if (PhotoFrame.trafficShown) {
+			PhotoFrame.hideTraffic();
+		}
+		else {
+			PhotoFrame.showTraffic();
+		}
+	}
+	
+	this.showTraffic = function () {
+		if (!PhotoFrame.trafficShown) $('#traffic, #traffic img').fadeIn('medium');
+		PhotoFrame.trafficShown = true;
+	}
+	
+	this.hideTraffic = function () {
+		if (PhotoFrame.trafficShown) $('#traffic, #traffic img').fadeOut('medium');
+		PhotoFrame.trafficShown = false;
+	}
 	
 	this.init = function () {
 		$('#clock').click(PhotoFrame.clickEvent);
+		
 		$(window).resize(function (){
 			clearTimeout(PhotoFrame.displayTimer);
 			PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updateDisplay() }, 500);
 		});
+		
+		PhotoFrame.trafficShown = false;
 	}
 	
 	this.clickEvent = function(event){ 
@@ -133,7 +202,8 @@ var PhotoFrame = new function () {
 	
 	this.start = function () {
 		PhotoFrame.updateDisplay();
-		if (PhotoFrame.overlay) PhotoFrame.updateTime();
+		if (PhotoFrame.bar) PhotoFrame.updateTime();
+		PhotoFrame.updateTraffic();
 	}
 	
 	this.setDisplayInterval = function (value) {
@@ -144,7 +214,15 @@ var PhotoFrame = new function () {
 		jQuery.fx.off = !value;
 	}
 	
-	this.setEnableOverlay = function (value) {
-		PhotoFrame.overlay = value;
+	this.setEnableBar = function (value) {
+		PhotoFrame.bar = value;
+	}
+	
+	this.setTrafficMap = function (value) {
+		PhotoFrame.trafficMap = value;
+	}
+	
+	this.setTrafficOverlay = function (value) {
+		PhotoFrame.trafficOverlay = value;
 	}
 };
