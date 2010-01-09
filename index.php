@@ -35,6 +35,7 @@ require_once("init.php");
 			PhotoFrame.setTrafficOverlay   ("<?php echo($settings["traffic.overlay"]);            ?>");
 			PhotoFrame.setEnableBar        ( <?php echo($settings["display.bar"]?'true':'false'); ?> );
 			PhotoFrame.setEnableFX         ( <?php echo($settings["display.fx"]?'true':'false');  ?> );
+			PhotoFrame.setWebcamsInterval  ( <?php echo($settings["webcams.interval"]);           ?> );
 
 			$(document).keypress(function (event) {
 				var letter = String.fromCharCode(event.which);
@@ -52,7 +53,14 @@ require_once("init.php");
 				return 0;
 			});
 
-			<?php if($settings["display.about"]) echo('$("#about").show("fast");'); ?>
+			<?php 
+				foreach ($settings['webcams.cams'] as $nr => $cam)
+				{
+					echo('PhotoFrame.addWebcam("webcam-' . $nr . '", "' . $cam['url'] . '");');
+				}
+			?>
+
+			<?php if($settings["display.about"]) echo('PhotoFrame.showAbout()'); ?>
 			
 			PhotoFrame.start();
 		});
@@ -80,6 +88,40 @@ require_once("init.php");
 					<img src="img/logo.png"/>
 					github.com/janpaul123/photogenix
 				</a>
+			</div>
+			<div id="webcams">
+				<?php 
+					$styleDivAllowed   = array('top', 'bottom', 'left', 'right', 'float');
+					$styleImageAllowed = array('width', 'height');
+					foreach ($settings['webcams.cams'] as $nr => $cam)
+					{
+						$styleDiv='';
+						$styleImage='';
+						
+						foreach($styleDivAllowed as $element) 
+						{
+							if (isset($cam[$element])) $styleDiv .= $element . ': ' . $cam[$element] . '; ';
+						}
+						
+						foreach($styleImageAllowed as $element) 
+						{
+							if (isset($cam[$element])) $styleImage .= $element . ': ' . $cam[$element] . '; ';
+						}
+						
+						if (isset($cam['top']) || isset($cam['bottom']) || isset($cam['left']) || isset($cam['right']))
+						{
+							$styleDiv .= 'position: fixed; ';
+						}
+						
+						echo('<div class="container" style="' . $styleDiv . '">');
+						echo('<div class="holder">');
+						echo('<div class="title">' . $cam['title'] . '</div>');
+						echo('<div class="border"></div>');
+						echo('<img style="' . $styleImage . '" id="webcam-' . $nr . '" src="' . $cam['url'] . '"/>');
+						echo('</div>');
+						echo('</div>');
+					}
+				?>
 			</div>
 		</div>
 	</body>

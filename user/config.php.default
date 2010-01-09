@@ -21,10 +21,13 @@ error_reporting(0);
 $settings = array();
 $settings['rss.feeds']                 = array();
 $settings['photo.dirs']                = array();
-$settings['display.keys']              = array();         
+$settings['display.keys']              = array();
+$settings['webcams.cams']              = array();         
 
+
+// DISPLAY SETTINGS
 // name/title of the window
-$settings['display.name']              = 'Fotolijst';
+$settings['display.name']              = 'Photogenix';
 
 // interval for retrieving a new picture/quote; in ms
 $settings['display.interval']          = '20000';
@@ -40,30 +43,36 @@ $settings["display.about"]             = true;
 
 // key options
 $settings['display.keys']['t']         = 'PhotoFrame.toggleTraffic()';
+$settings['display.keys']['w']         = 'PhotoFrame.toggleWebcams()';
+$settings['display.keys']['?']         = 'PhotoFrame.toggleAbout()';
 $settings['display.keys'][' ']         = 'PhotoFrame.updateDisplay()';
 /*
  * Some examples:
- * - PhotoFrame.toggleTraffic(), PhotoFrame.showTraffic(), PhotoFrame.hideTraffic()
- * - PhotoFrame.updateDisplay(), PhotoFrame.updateBackground(), PhotoFrame.updateText() 
+ * - PhotoFrame.toggleTraffic(),  PhotoFrame.showTraffic(),      PhotoFrame.hideTraffic()
+ * - PhotoFrame.toggleWebcams(),  PhotoFrame.showWebcams(),      PhotoFrame.hideWebcams()
+ * - PhotoFrame.updateDisplay(),  PhotoFrame.updateBackground(), PhotoFrame.updateText()
  */
 
+
+// RSS SETTINGS
+// array of feeds
 // required settings are 'url' (rss feed itself), 'cache' (filename) and 'logo' (path to image)
 $settings['rss.feeds'][]               = array(
-                                               'url'     => 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen', 
-                                               'cache'   => 'nu.nl.xml', 
-                                               'logo'    => 'user/feedpics/nu.nl.png',
+                                               'url'        => 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen', 
+                                               'cache'      => 'nu.nl.xml', 
+                                               'logo'       => 'user/feedpics/nu.nl.png',
                                               );
 $settings['rss.feeds'][]               = array(
-                                               'url'     => 'http://feeds.feedburner.com/tweakers/mixed', 
-                                               'cache'   => 'tweakers.net.xml', 
-                                               'logo'    => 'user/feedpics/tweakers.net.png',
+                                               'url'        => 'http://feeds.feedburner.com/tweakers/mixed', 
+                                               'cache'      => 'tweakers.net.xml', 
+                                               'logo'       => 'user/feedpics/tweakers.net.png',
                                               );
 $settings['rss.feeds'][]               = array(
-                                               'url'     => 'http://rss.weeronline.nl/weernieuws/2/nederland.xml', 
-                                               'cache'   => 'weather.rss.xml', 
-                                               'logo'    => 'user/feedpics/weather.png', 
-                                               'all'     => true,    // use description instead of title
-                                               'width'   => '480px', // custom width
+                                               'url'        => 'http://rss.weeronline.nl/weernieuws/2/nederland.xml', 
+                                               'cache'      => 'weather.rss.xml', 
+                                               'logo'       => 'user/feedpics/weather.png', 
+                                               'all'        => true,    // use description instead of title
+                                               'width'      => '480px', // custom width
                                                );
 
 // error message to show when the downloading of a feeds fails
@@ -72,12 +81,17 @@ $settings['rss.error_message']         = 'De router faalt... alweer!';
 // skip randomly through the feeds
 $settings['rss.random']                = false;
 
+
+// TRAFFIC SETTINGS
 // traffic map image, will be refreshed every minute
 $settings['traffic.map']               = 'user/maps/nederland.png';
 
 // traffic overlay image, will be refreshed every minute (this one is optional)
 $settings['traffic.overlay']           = 'http://www.traphic.nl/generated/verkeersinformatie.png';
 
+
+// PHOTO SETTINGS
+// array of directories
 // you can give multiple dirs with images, ie. C:\Photos (Win) or /photos (Linux)
 $settings['photo.dirs'][]              = 'user/photos/';
  
@@ -95,3 +109,23 @@ $settings['photo.format_filename']     = true;
 
 // maximum number of photos from one directory before showing a new directory
 $settings['photo.max_from_dir']        = 10;
+
+
+// WEBCAM SETTINGS 
+// interval for updating webcams, in ms
+$settings['webcams.interval']          = 5000;
+
+// array of webcams
+// you can use 'url' (required), 'title', 'width', 'height', 'left', 'right', 'top', 'bottom', 'float' 
+$settings['webcams.cams'][]            = array(
+                                               'title'      => 'Grote Markt, Groningen',
+                                               'url'        => 'http://www.rtvnoord.nl/webcam/RTVN-GM.jpg',
+                                               'width'      => '300px',
+                                              );
+$settings['webcams.cams'][]            = array(
+                                               'title'      => 'Rijksstraatweg, Haren',
+                                               'url'        => 'http://ikbenthuisop.homelinux.com/jpg/plaatje.jpg',
+                                               'width'      => '300px',
+                                               'right'      => '50px',
+                                               'bottom'     => '50px',
+                                              );

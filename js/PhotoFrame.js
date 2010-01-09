@@ -26,6 +26,11 @@ var PhotoFrame = new function () {
 	var trafficShown          = false;
 	var trafficMap            = 'user/maps/nederland.png';
 	var trafficOverlay        = 'http://www.traphic.nl/generated/verkeersinformatie.png';
+	var webcams               = null;
+	var webcamsTimer          = null;
+	var webcamsInterval       = 5000;
+	var webcamsShown          = false;
+	var aboutShown            = false;
 	
 	this.updateDisplay = function () {
 		if (PhotoFrame.displayTimer!=null) {
@@ -51,7 +56,7 @@ var PhotoFrame = new function () {
 		});
 		
 		var path = 'random_picture.php?width='  + $(window).width() + '&height=' 
-			+ $(window).height() + '&rand=' + (new Date().getTime());
+			+ $(window).height() + '&rand=' + (new Date().getTime() + Math.random());
 		
 		$newBackground.attr('src', path);
 	}
@@ -77,7 +82,7 @@ var PhotoFrame = new function () {
 			});
 			
 			$newMap.attr('src', PhotoFrame.trafficMap 
-					+ (PhotoFrame.trafficMap.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime()));
+					+ (PhotoFrame.trafficMap.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random()));
 		}
 		
 		if (PhotoFrame.trafficOverlay.indexOf('http') > -1) {
@@ -95,7 +100,7 @@ var PhotoFrame = new function () {
 			});
 			
 			$newOverlay.attr('src', PhotoFrame.trafficOverlay 
-					+ (PhotoFrame.trafficOverlay.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime()));
+					+ (PhotoFrame.trafficOverlay.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random()));
 		}
 		
 		PhotoFrame.trafficTimer = setTimeout(function() { PhotoFrame.updateTraffic() }, 60000);
@@ -107,18 +112,24 @@ var PhotoFrame = new function () {
 		
 		$newQuote.addClass('holder');
 		$newQuote.addClass('block');
-		$newQuote.load('quote.php', {timestamp: (new Date().getTime())}, function() {
+		$newQuote.load('quote.php', {timestamp: (new Date().getTime() + Math.random())}, function() {
 			$newQuote.css('top', '120px');
 			$('#quotes').append($newQuote);
 			setTimeout(function() {
 				$newQuote.animate({
 					top: "0px"
 				}, "medium");
-				setTimeout(function() {
-					$oldQuote.fadeOut("fast", function() {
-						$(this).remove();
-					});
-				}, 150);
+				
+				if (jQuery.fx.off) {
+					$oldQuote.remove();
+				}
+				else {
+					setTimeout(function() {
+						$oldQuote.fadeOut("fast", function() {
+							$(this).remove();
+						});
+					}, 150);
+				}
 			}, 200);
 		});
 	}
@@ -200,10 +211,64 @@ var PhotoFrame = new function () {
 		PhotoFrame.trafficShown = false;
 	}
 	
+	this.toggleAbout = function () {
+		if (PhotoFrame.aboutShown) {
+			PhotoFrame.hideAbout();
+		}
+		else {
+			PhotoFrame.showAbout();
+		}
+	}
+	
+	this.showAbout = function () {
+		if (!PhotoFrame.aboutShown) $('#about').fadeIn('slow');
+		PhotoFrame.aboutShown = true;
+	}
+	
 	this.hideAbout = function () {
-		setTimeout(function() {
-			$('#about').fadeOut('slow');
-		}, 3000);
+		if (PhotoFrame.aboutShown) $('#about').fadeOut('slow');
+		PhotoFrame.aboutShown = false;
+	}
+	
+	this.updateWebcams = function() {
+		if (PhotoFrame.webcamsTimer!=null) {
+			clearTimeout(PhotoFrame.webcamsTimer);
+			PhotoFrame.webcamsTimer = null;
+		}
+		
+		if (PhotoFrame.webcamsShown) {
+			for (var id in PhotoFrame.webcams) {
+				var url = PhotoFrame.webcams[id];
+				$('#' + id).attr('src', url 
+						+ (url.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random()));
+			}
+			
+			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, PhotoFrame.webcamsInterval);
+		}
+		else
+		{
+			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, 60000);
+		}
+	}
+	
+	this.toggleWebcams = function () {
+		if (PhotoFrame.webcamsShown) {
+			PhotoFrame.hideWebcams();
+		}
+		else {
+			PhotoFrame.showWebcams();
+		}
+	}
+	
+	this.showWebcams = function () {
+		if (!PhotoFrame.webcamsShown) $('#webcams, #webcams div').fadeIn('medium');
+		PhotoFrame.webcamsShown = true; // the order here is important!
+		PhotoFrame.updateWebcams();
+	}
+	
+	this.hideWebcams = function () {
+		if (PhotoFrame.webcamsShown) $('#webcams, #webcams div').fadeOut('medium');
+		PhotoFrame.webcamsShown = false;
 	}
 	
 	this.init = function () {
@@ -214,7 +279,10 @@ var PhotoFrame = new function () {
 			PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updateDisplay() }, 500);
 		});
 		
+		PhotoFrame.webcams      = new Array();
 		PhotoFrame.trafficShown = false;
+		PhotoFrame.webcamsShown = false;
+		PhotoFrame.aboutShown   = false;
 	}
 	
 	this.clickEvent = function(event){ 
@@ -227,7 +295,10 @@ var PhotoFrame = new function () {
 		PhotoFrame.updateDisplay();
 		if (PhotoFrame.bar) PhotoFrame.updateTime();
 		PhotoFrame.updateTraffic();
-		PhotoFrame.hideAbout();
+		
+		setTimeout(function() {
+			PhotoFrame.hideAbout();
+		}, 3000);
 	}
 	
 	this.setDisplayInterval = function (value) {
@@ -248,5 +319,13 @@ var PhotoFrame = new function () {
 	
 	this.setTrafficOverlay = function (value) {
 		PhotoFrame.trafficOverlay = value;
+	}
+	
+	this.addWebcam = function (id, url) {
+		PhotoFrame.webcams[id] = url;
+	}
+	
+	this.setWebcamsInterval = function (value) {
+		PhotoFrame.webcamsInterval = value;
 	}
 };
