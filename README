@@ -1,14 +1,11 @@
 Photogenix is a script written in PHP, HTML, CSS and Javascript for running in a full-screen browser on a custom photoframe.
 
 Features:
- - Random photo from multiple directories
- - Clock
+ - Photos
  - XML feeds
+ - Traffic map
+ - Clock
  - Slick animations
- - Traffic map (with optional overlay)
-
-Credits:
- - Tommy van der Vorst (MisterData): original script
 
 Installation instructions:
  - Set up a webserver (apache or WAMP or whatever)
@@ -28,3 +25,11 @@ Upgrading instructions:
 Notes:
  - Works best in Firefox, but *could* work just fine in other browsers
  - The animations can be quite heavy for slow machines, you can disable them in the config
+ - About message can also be hidden using the config
+ 
+Credits:
+ - Tommy van der Vorst
+ - Jan Paul Posma
+ 
+License:
+ - This software is licensed under the GPLv3, see the LICENSE file
