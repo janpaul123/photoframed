@@ -5,7 +5,7 @@ Features:
  - Clock
  - XML feeds
  - Slick animations
- - Traffic map of the Netherlands (as for now: broken)
+ - Traffic map (with optional overlay)
 
 Credits:
  - Tommy van der Vorst (MisterData): original script
