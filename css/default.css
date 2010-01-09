@@ -44,6 +44,21 @@ li {
 	overflow                  : hidden;
 }
 
+#overlay .holder {
+	float                     : left;
+	overflow                  : hidden;
+	margin                    : 0;
+	height                    : 100px;
+}
+
+#overlay .center {
+	overflow                  : hidden;
+	margin                    : 0px;
+	display                   : table-cell;
+	vertical-align            : middle;
+	height                    : 100px;
+}
+
 #quotes {
 	height                    : 100px;
 	color                     : white;
@@ -56,28 +71,21 @@ li {
 	font-size                 : 11px;
 }
 
-#quotes .holder {
-	float                     : left;
-	overflow                  : hidden;
-	margin                    : 0 15px 0 0;
-	height                    : 100px;
-}
-
-#quotes .center {
-	overflow                  : hidden;
-	margin                    : 0px;
-	display                   : table-cell;
-	vertical-align            : middle;
-	height                    : 100px;
-}
-
+/* to combine with #overlay .holder */
 #quotes .quote {
 	width                     : 280px;
+	margin-right              : 15px;
 }
 
+/* to combine with #overlay .holder */
 #quotes .logo {
 	margin-left               : 10px;
 	margin-right              : 20px;
+}
+
+/* to combine with #overlay .holder */
+#quotes .block {
+	position                  : absolute;
 }
 
 #clock {
@@ -123,12 +131,3 @@ img.overlaymap {
 	width                     : 512px;
 	height                    : 610px;
 }
-
-
-.valigner
-{
-height:100%;
-width: 0px;
-vertical-align: middle;
-visibility: hidden;
-} 

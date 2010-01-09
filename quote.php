@@ -4,8 +4,7 @@ require_once("config.php");
 
 if ($settings['rss.random'])
 {
-	$old = (isset($_SESSION['rss.current']) ? $_SESSION['rss.current'] + 1 : 0);
-	
+	$old = (isset($_SESSION['rss.current']) ? $_SESSION['rss.current'] : 0);
 	do
 	{
 		$current = rand(0, count($settings['rss.feeds'])-1);
