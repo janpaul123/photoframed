@@ -89,20 +89,19 @@ li {
 }
 
 #clock {
-	position                  : fixed;
-	color                     : white;
-	overflow                  : hidden;
-	width                     : 100px;
-	right                     : 50px;
+	position                  : absolute;
+	width                     : 200px;
+	right                     : 0px;
 }
 
 #clock #hours {
-	float                     : left;
-	width                     : 35px;
+	width                     : 100px;
+	text-align                : right;
 }
 
 #clock .number {
 	text-shadow               : #000000 3px 3px 3px 3px;
+	color                     : white;
 	padding-top               : 8px;
 	position                  : absolute;
 }
@@ -110,12 +109,12 @@ li {
 #clock #hours .number {
 	font-size                 : 70px;
 	text-shadow               : #000000 3px 3px 3px 3px;
-	padding-top               : 5px;
+	right                     : 100px;
 }
 
 #clock #minutes {
-	float                     : left;
-	width                     : 30px;
+	width                     : 60px;
+	left                      : 100px;
 }
 
 #clock #minutes .number {

@@ -36,9 +36,11 @@ function UpdateTime() {
 		minutes = date.getMinutes();
 		var $oldMinutes = $('#minutes > .number');
 		var $newMintues = $('<div></div>');
+		var strMinutes = ''+minutes;
+		if(strMinutes.length < 2) strMinutes = '0' + strMinutes;
 		
 		$newMintues.addClass('number');
-		$newMintues.text(''+minutes);
+		$newMintues.text(strMinutes);
 		$newMintues.css('top', '120px');
 		$('#minutes').append($newMintues);
 		$newMintues.animate({
