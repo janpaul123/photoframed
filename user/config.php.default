@@ -42,6 +42,7 @@ $settings['display.bar']               = true;
 $settings["display.about"]             = true;
 
 // key options
+// use 'function', 'title' and 'key' (optional description for things like spaces)
 $settings['display.keys']['h']         = array(
                                                'function'   => 'PhotoFrame.toggleHelp()',
                                                'title'      => 'Toggle help box',
