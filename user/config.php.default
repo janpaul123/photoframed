@@ -10,7 +10,10 @@ $settings['photo.dirs']                = array();
 $settings['display.name']              = 'Fotolijst';
 
 // interval for retrieving a new picture/quote; in ms
-$settings['js.interval']               = '20000';
+$settings['display.interval']          = '20000';
+
+// enable or disable effects
+$settings['display.fx']                = true;
 
 
 // required settings are 'url' (rss feed itself), 'cache' (filename) and 'logo' (path to image)

@@ -86,7 +86,7 @@ li {
 /* to combine with #overlay .holder */
 #quotes .block {
 	position                  : absolute;
-	margin                    : 0 170px 0 0;
+	margin-right              : 170px;
 }
 
 #clock {

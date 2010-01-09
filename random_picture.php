@@ -1,7 +1,7 @@
 <?php
 header('Content-type: image/jpeg');
 session_start();
-require_once('config.php');
+require_once("init.php");
 
 function findDirsRecursive($path, array &$dirs) 
 {

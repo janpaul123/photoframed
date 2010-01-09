@@ -1,20 +1,26 @@
 <?php 
 session_start();
-require_once("config.php"); 
+require_once("init.php"); 
 ?>
 <html>
 	<head>
 		<title><?php echo $settings["display.name"] ?></title>
 		<link rel="stylesheet" href="css/default.css" type="text/css" />
 		
-		<script type="text/javascript">
-		var DisplayInterval = <?php echo $settings["js.interval"] ?>;
-		</script>
 		<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-		<script type="text/javascript" src="js/content.js"></script>
+		<script type="text/javascript" src="js/PhotoFrame.js"></script>
+		
+		<script type="text/javascript">
+		$(document).ready(function(){
+			PhotoFrame.init();
+			PhotoFrame.setDisplayInterval(<?php echo($settings["display.interval"]); ?>);
+			PhotoFrame.setEnableFX(<?php echo($settings["display.fx"]?'true':'false'); ?>);
+			PhotoFrame.start();
+		});
+		</script>
 	</head>
 	
-	<body onload="DisplayStart();" onclick="DisplayUpdate();">
+	<body>
 		<div id="container">
 			<div id="background"></div>
 			<div id="overlay">
