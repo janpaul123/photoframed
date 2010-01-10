@@ -232,7 +232,7 @@ img {
 	overflow                  : hidden;
 	display                   : none;
 	left                      : 5%;
-	bottom                    : 50px;
+	bottom                    : 30px;
 }
 
 #webcams .container {
@@ -240,6 +240,7 @@ img {
 	z-index                   : -2;
 	display                   : none;
 	margin-right              : 50px;
+	margin-bottom             : 20px;
 }
 
 #webcams .holder {

@@ -146,25 +146,25 @@ $settings['webcams.cams'][]            = array(
                                                'title'      => 'Grote Markt, Groningen',
                                                'url'        => 'http://www.rtvnoord.nl/webcam/RTVN-GM.jpg',
                                                'min-width'  => '150px',
-                                               'max-width'  => '250px',
+                                               'max-width'  => '280px',
                                                'min-height' => '100px',
-                                               'max-height' => '200px',
+                                               'max-height' => '180px',
                                               );
                                               
 $settings['webcams.cams'][]            = array(
                                                'title'      => 'Stichting SCN, Hereweg, Groningen',
                                                'url'        => 'http://www.zedah.org:8888/',
                                                'min-width'  => '150px',
-                                               'max-width'  => '250px',
+                                               'max-width'  => '280px',
                                                'min-height' => '100px',
-                                               'max-height' => '200px',
+                                               'max-height' => '180px',
                                               );
                                               
 $settings['webcams.cams'][]            = array(
                                                'title'      => 'Rijksstraatweg, Haren',
                                                'url'        => 'http://ikbenthuisop.homelinux.com/jpg/plaatje.jpg',
                                                'min-width'  => '150px',
-                                               'max-width'  => '250px',
+                                               'max-width'  => '280px',
                                                'min-height' => '100px',
-                                               'max-height' => '200px',
+                                               'max-height' => '180px',
                                               );
