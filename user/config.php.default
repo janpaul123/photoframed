@@ -78,6 +78,9 @@ $settings['connection.check']          = true;
 // show a wifi error logo instead of a normal error logo
 $settings['connection.wifi']           = true;
 
+// image to check for the connection (must accept ?1298712 behind the url, therefore Google doesn't work..)
+$settings['connection.url']            = 'http://www.nu.nl/images/logo_nu_nl.gif';
+
 // RSS SETTINGS
 // array of feeds
 // required settings are 'url' (rss feed itself), 'cache' (filename) and 'logo' (path to image)

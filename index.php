@@ -36,6 +36,7 @@ require_once("init.php");
 			PhotoFrame.setEnableBar        ( <?php echo($settings["display.bar"]?'true':'false'); ?> );
 			PhotoFrame.setEnableFX         ( <?php echo($settings["display.fx"]?'true':'false');  ?> );
 			PhotoFrame.setWebcamsInterval  ( <?php echo($settings["webcams.interval"]);           ?> );
+			PhotoFrame.setConnectionURL    ("<?php echo(isset($settings["connection.url"])?$settings["connection.url"]:'http://www.nu.nl/images/logo_nu_nl.gif'); ?>");
 			
 			$(document).keypress(function (event) {
 				var letter = String.fromCharCode(event.which);

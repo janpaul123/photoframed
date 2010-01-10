@@ -33,6 +33,11 @@ var PhotoFrame = new function () {
 	var aboutShown            = false;
 	var helpShown             = false;
 	var connectionTimer       = null;
+	var connectionURL         = 'http://www.nu.nl/images/logo_nu_nl.gif';
+	
+	this.makeDynamicUrl = function (url) {
+		return url + (url.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random());
+	}
 	
 	this.updateDisplay = function () {
 		if (PhotoFrame.displayTimer!=null) {
@@ -57,8 +62,8 @@ var PhotoFrame = new function () {
 			});
 		});
 		
-		var path = 'random_picture.php?width='  + $(window).width() + '&height=' 
-			+ $(window).height() + '&rand=' + (new Date().getTime() + Math.random());
+		var path = PhotoFrame.makeDynamicUrl('random_picture.php?width='  + $(window).width() + '&height=' 
+			+ $(window).height());
 		
 		$newBackground.attr('src', path);
 	}
@@ -84,8 +89,7 @@ var PhotoFrame = new function () {
 				$oldMap.remove();
 			});
 			
-			$newMap.attr('src', PhotoFrame.trafficMap 
-					+ (PhotoFrame.trafficMap.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random()));
+			$newMap.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.trafficMap)); 
 		}
 		
 		if (PhotoFrame.trafficOverlay.indexOf('http') > -1) {
@@ -102,8 +106,7 @@ var PhotoFrame = new function () {
 				$oldOverlay.remove();
 			});
 			
-			$newOverlay.attr('src', PhotoFrame.trafficOverlay 
-					+ (PhotoFrame.trafficOverlay.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random()));
+			$newOverlay.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.trafficOverlay)); 
 		}
 	}
 	
@@ -251,8 +254,7 @@ var PhotoFrame = new function () {
 	}
 	
 	this.updateWebcam = function(id) {
-		var url = PhotoFrame.webcams[id];
-		url = url + (url.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random())
+		var url = PhotoFrame.makeDynamicUrl(PhotoFrame.webcams[id]);
 		
 		var $newCam = $(new Image());
 		var style = $('#' + id + ' img').attr('style');
@@ -332,7 +334,7 @@ var PhotoFrame = new function () {
 			$('#connectionerror').fadeIn('medium');
 		});
 		
-		$img.attr('src', 'http://www.google.com/images/logo.gif');
+		$img.attr('src', PhotoFrame.makeDynamicUrl('http://www.nu.nl/images/logo_nu_nl.gif'));
 		
 		PhotoFrame.connectionTimer = setTimeout(PhotoFrame.checkConnection, 27000);
 	}
@@ -394,5 +396,9 @@ var PhotoFrame = new function () {
 	
 	this.setWebcamsInterval = function (value) {
 		PhotoFrame.webcamsInterval = value;
+	}
+	
+	this.setConnectionURL = function (value) {
+		PhotoFrame.connectionURL = value;
 	}
 };
