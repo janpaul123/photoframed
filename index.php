@@ -130,12 +130,10 @@ require_once("init.php");
 						}
 						
 						echo('<div class="container" style="' . $styleDiv . '">');
-						echo('<div class="holder">');
+						echo('<div class="holder" id="webcam-' . $nr . '" >');
 						echo('<div class="title">' . $cam['title'] . '</div>');
 						echo('<div class="border"></div>');
-						echo('<img style="' . $styleImage . '" id="webcam-' . $nr . '" src="' . $cam['url'] . '"');
-						echo(' onLoad="$(this).css(\'opacity\', 1); $(\'#webcam-error-'.$nr.'\').hide();"'); 
-						echo(' onError="$(this).css(\'opacity\', 0); $(\'#webcam-error-'.$nr.'\').show();"/>');
+						echo('<img class="webcam" style="' . $styleImage . '" src="' . $cam['url'] . '"/>');
 						echo('<img class="error" id="webcam-error-' . $nr . '" src="img/webcam_error.png"/>');
 						echo('</div>');
 						echo('</div>');

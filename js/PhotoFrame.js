@@ -250,6 +250,27 @@ var PhotoFrame = new function () {
 		PhotoFrame.helpShown = false;
 	}
 	
+	this.updateWebcam = function(id) {
+		var url = PhotoFrame.webcams[id];
+		url = url + (url.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random())
+		
+		var $newCam = $(new Image());
+		var style = $('#' + id + ' img.webcam').attr('style');
+		
+		$newCam.addClass('webcam');
+		$newCam.attr('style', style);
+		$newCam.load(function () {
+			$('#' + id + ' img.webcam').remove();
+			$('#' + id).append($(this));
+			$('#' + id + ' img.error').fadeOut("fast");
+		});
+		$newCam.error(function () {
+			$('#' + id + ' img.error').fadeIn("fast");
+		});
+		
+		$newCam.attr('src', url);
+	}
+	
 	this.updateWebcams = function() {
 		if (PhotoFrame.webcamsTimer!=null) {
 			clearTimeout(PhotoFrame.webcamsTimer);
@@ -258,9 +279,7 @@ var PhotoFrame = new function () {
 		
 		if (PhotoFrame.webcamsShown) {
 			for (var id in PhotoFrame.webcams) {
-				var url = PhotoFrame.webcams[id];
-				$('#' + id).attr('src', url 
-						+ (url.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random()));
+				PhotoFrame.updateWebcam(id);
 			}
 			
 			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, PhotoFrame.webcamsInterval);
