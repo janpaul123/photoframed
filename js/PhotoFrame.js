@@ -39,8 +39,8 @@ var PhotoFrame = new function () {
 			clearTimeout(PhotoFrame.displayTimer);
 			PhotoFrame.displayTimer = null;
 		}
-		PhotoFrame.updateBackground();
 		PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updateDisplay() }, PhotoFrame.displayInterval);
+		PhotoFrame.updateBackground();
 	}
 	
 	this.updateBackground = function() {
@@ -68,6 +68,7 @@ var PhotoFrame = new function () {
 			clearTimeout(PhotoFrame.trafficTimer);
 			PhotoFrame.trafficTimer = null;
 		}
+		PhotoFrame.trafficTimer = setTimeout(function() { PhotoFrame.updateTraffic() }, 60000);
 		
 		if (PhotoFrame.trafficMap.indexOf('http') > -1) {
 			var $oldMap = $('#traffic img.map');
@@ -104,8 +105,6 @@ var PhotoFrame = new function () {
 			$newOverlay.attr('src', PhotoFrame.trafficOverlay 
 					+ (PhotoFrame.trafficOverlay.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random()));
 		}
-		
-		PhotoFrame.trafficTimer = setTimeout(function() { PhotoFrame.updateTraffic() }, 60000);
 	}
 	
 	this.updateText = function () {
@@ -281,14 +280,13 @@ var PhotoFrame = new function () {
 		}
 		
 		if (PhotoFrame.webcamsShown) {
+			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, PhotoFrame.webcamsInterval);
+			
 			for (var id in PhotoFrame.webcams) {
 				PhotoFrame.updateWebcam(id);
 			}
-			
-			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, PhotoFrame.webcamsInterval);
 		}
-		else
-		{
+		else {
 			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, 60000);
 		}
 	}
@@ -309,7 +307,11 @@ var PhotoFrame = new function () {
 	}
 	
 	this.hideWebcams = function () {
-		if (PhotoFrame.webcamsShown) $('#webcams, #webcams div').fadeOut('medium');
+		if (PhotoFrame.webcamsShown) {
+			$('#webcams, #webcams div').fadeOut('medium', function() {
+				$('#webcams .shadow').fadeIn('medium');
+			});
+		}
 		PhotoFrame.webcamsShown = false;
 	}
 	
