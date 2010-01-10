@@ -18,6 +18,7 @@
 
 // initialization
 error_reporting(0);
+set_time_limit(1);
 $settings = array();
 $settings['rss.feeds']                 = array();
 $settings['photo.dirs']                = array();
@@ -71,6 +72,12 @@ $settings['display.keys'][' ']         = array(
  * - PhotoFrame.updateDisplay(),  PhotoFrame.updateBackground(), PhotoFrame.updateText()
  */
 
+// CONNECTION SETTINGS
+// check the internet connection twice a minute
+$settings['connection.check']          = true;
+
+// show a wifi error logo instead of a normal error logo
+$settings['connection.wifi']           = true;
 
 // RSS SETTINGS
 // array of feeds
@@ -111,7 +118,7 @@ $settings['traffic.overlay']           = 'http://www.traphic.nl/generated/verkee
 // PHOTO SETTINGS
 // array of directories
 // you can give multiple dirs with images, ie. C:\Photos (Win) or /photos (Linux)
-$settings['photo.dirs'][]              = 'user/photos/';
+$settings['photo.dirs'][]              = 'user/photos';
  
 // custom copyright notice in the footer
 $settings['photo.copyright']           = '';

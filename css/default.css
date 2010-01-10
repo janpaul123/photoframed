@@ -151,6 +151,13 @@ img {
 	font-size                 : 45px;
 }
 
+#connectionerror {
+	display                   : none;
+	position                  : absolute;
+	left                      : 122px;
+	top                       : 65px;
+}
+
 #traffic img {
 	position                  : absolute;
 	right                     : 60px;

@@ -60,7 +60,8 @@ require_once("init.php");
 				}
 			?>
 
-			<?php if($settings["display.about"]) echo('PhotoFrame.showAbout()'); ?>
+			<?php if($settings["display.about"])    echo('PhotoFrame.showAbout();'); ?>
+			<?php if($settings["connection.check"]) echo('PhotoFrame.checkConnection();'); ?>
 
 			PhotoFrame.start();
 		});
@@ -75,6 +76,11 @@ require_once("init.php");
 				<div id="clock">
 					<div class="holder" id="hours"></div>
 					<div class="holder" id="minutes"></div>
+					<?php if ($settings['connection.wifi']) {?>
+						<img id="connectionerror" src="img/transmit_error.png"/>
+					<?php } else {?>
+						<img id="connectionerror" src="img/disconnect.png"/>
+					<?php } ?>
 				</div>
 				<div id="quotes"></div>
 			</div>

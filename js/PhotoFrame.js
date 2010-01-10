@@ -32,6 +32,7 @@ var PhotoFrame = new function () {
 	var webcamsShown          = false;
 	var aboutShown            = false;
 	var helpShown             = false;
+	var connectionTimer       = null;
 	
 	this.updateDisplay = function () {
 		if (PhotoFrame.displayTimer!=null) {
@@ -262,10 +263,10 @@ var PhotoFrame = new function () {
 		$newCam.load(function () {
 			$('#' + id + ' img.webcam').remove();
 			$('#' + id).append($(this));
-			$('#' + id + ' img.error').fadeOut("fast");
+			$('#' + id + ' img.error').fadeOut('medium');
 		});
 		$newCam.error(function () {
-			$('#' + id + ' img.error').fadeIn("fast");
+			$('#' + id + ' img.error').fadeIn('medium');
 		});
 		
 		$newCam.attr('src', url);
@@ -308,6 +309,28 @@ var PhotoFrame = new function () {
 	this.hideWebcams = function () {
 		if (PhotoFrame.webcamsShown) $('#webcams, #webcams div').fadeOut('medium');
 		PhotoFrame.webcamsShown = false;
+	}
+	
+	this.checkConnection = function () {
+		if (PhotoFrame.connectionTimer!=null) {
+			clearTimeout(PhotoFrame.connectionTimer);
+			PhotoFrame.displayTimer = null;
+		}
+		
+		var $img = $(new Image());
+		
+		$img.load(function () {
+			$('#connectionerror').fadeOut('medium');
+			$(this).remove();
+		});
+		
+		$img.error(function () {
+			$('#connectionerror').fadeIn('medium');
+		});
+		
+		$img.attr('src', 'http://www.google.com/images/logo.gif');
+		
+		PhotoFrame.connectionTimer = setTimeout(PhotoFrame.checkConnection, 27000);
 	}
 	
 	this.init = function () {

@@ -46,9 +46,9 @@ if ($time + 5*60 < time())
 {
 	try
 	{
-		$file    = fopen($cache, "w");
 		$context = stream_context_create(array('http' => array('timeout' => 2))); 
 		$xml     = file_get_contents($feed['url'], 0, $context);
+		$file    = fopen($cache, "w");
 		fwrite($file, $xml);
 		fclose($file);
 	}
