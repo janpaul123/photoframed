@@ -202,7 +202,7 @@ img {
 	opacity                   : 0.9;
 	left                      : 50%;
 	bottom                    : 25%;
-	width                     : 400px;
+	width                     : 340px;
 	text-align                : center;
 	margin-left               : -200px;
 	background-color          : #151515;
@@ -215,12 +215,12 @@ img {
 
 #help td.key {
 	text-align                : right;
-	width                     : 130px;
+	width                     : 120px;
 }
 
 #help td.title {
 	text-align                : left;
-	width                     : 270px;
+	width                     : 220px;
 	padding-left              : 20px;
 }
 
