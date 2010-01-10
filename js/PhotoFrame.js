@@ -256,20 +256,19 @@ var PhotoFrame = new function () {
 		url = url + (url.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random())
 		
 		var $newCam = $(new Image());
-		var style = $('#' + id + ' img.webcam').attr('style');
+		var style = $('#' + id + ' img').attr('style');
 		
-		$newCam.addClass('webcam');
 		$newCam.attr('style', style);
 		$newCam.css('opacity', 1);
 		$newCam.load(function () {
-			$('#' + id + ' img.webcam').remove();
+			$('#' + id + ' img').remove();
 			$('#' + id).append($(this));
-			$('#' + id + ' img.error').fadeOut('medium');
-			$('#' + id + ' .shadow').fadeOut('medium');
+			$('#error-'  + id).fadeOut('medium');
+			$('#shadow-' + id).fadeOut('medium');
 		});
 		$newCam.error(function () {
-			$('#' + id + ' img.error').fadeIn('medium');
-			$('#' + id + ' .shadow').fadeIn('medium');
+			$('#error-'  + id).fadeIn('medium');
+			$('#shadow-' + id).fadeIn('medium');
 		});
 		
 		$newCam.attr('src', url);

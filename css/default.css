@@ -227,11 +227,11 @@ img {
 
 #webcams {
 	position                  : absolute;
-	max-width                 : 85%;
+	width                     : 90%;
 	max-height                : 85%;
 	overflow                  : hidden;
 	display                   : none;
-	left                      : 50px;
+	left                      : 5%;
 	bottom                    : 50px;
 }
 
@@ -263,12 +263,13 @@ img {
 #webcams .title {
 	position                  : absolute;
 	bottom                    : 5px;
-	left                      : 0px;
-	width                     : 100%;
+	left                      : 10%;
+	width                     : 80%;
 	opacity                   : 0.9;
 	z-index                   : 3;
 	text-align                : center;
 	font-size                 : 18px;
+	text-shadow               : #222222 0px 0px 3px;
 }
 
 #webcams img {
@@ -297,4 +298,5 @@ img {
 	z-index                   : 4;
 	border-radius             : 10px;
 	-moz-border-radius        : 10px;
+	display                   : none;
 }

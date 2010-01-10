@@ -114,7 +114,7 @@ require_once("init.php");
 			<div id="webcams">
 				<?php 
 					$styleDivAllowed   = array('top', 'bottom', 'left', 'right', 'float');
-					$styleImageAllowed = array('width', 'height');
+					$styleImageAllowed = array('width', 'height', 'max-width', 'max-height', 'min-width', 'min-height');
 					foreach ($settings['webcams.cams'] as $nr => $cam)
 					{
 						$styleDiv='';
@@ -136,12 +136,14 @@ require_once("init.php");
 						}
 						
 						echo('<div class="container" style="' . $styleDiv . '">');
-						echo('<div class="holder" id="webcam-' . $nr . '" >');
+						echo('<div class="holder">');
 						echo('<div class="border"></div>');
+						echo('<div id="webcam-' . $nr . '" >');
 						echo('<img class="webcam" style="' . $styleImage . '" src="' . $cam['url'] . '"/>');
+						echo('</div>');
 						echo('<div class="title">' . $cam['title'] . '</div>');
-						echo('<div class="shadow"></div>');
-						echo('<img class="error" id="webcam-error-' . $nr . '" src="img/webcam_error.png"/>');
+						echo('<div class="shadow" id="shadow-webcam-' . $nr . '"></div>');
+						echo('<img class="error"  id="error-webcam-'  . $nr . '" src="img/webcam_error.png"/>');
 						echo('</div>');
 						echo('</div>');
 					}
