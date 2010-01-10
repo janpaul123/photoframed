@@ -44,10 +44,18 @@ $cache = 'cache/' . $feed['cache'];
 $time = file_exists($cache) ? filemtime($cache) : 0;
 if ($time + 5*60 < time()) 
 {
-	$file    = fopen($cache, "w");
-	$xml     = file_get_contents($feed['url']);
-	fwrite($file, $xml);
-	fclose($file);
+	try
+	{
+		$file    = fopen($cache, "w");
+		$context = stream_context_create(array('http' => array('timeout' => 2))); 
+		$xml     = file_get_contents($feed['url'], 0, $context);
+		fwrite($file, $xml);
+		fclose($file);
+	}
+	catch(Exception $e)
+	{
+		$xml = file_get_contents($cache);
+	}
 }
 else 
 {

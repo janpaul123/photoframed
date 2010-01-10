@@ -36,7 +36,7 @@ require_once("init.php");
 			PhotoFrame.setEnableBar        ( <?php echo($settings["display.bar"]?'true':'false'); ?> );
 			PhotoFrame.setEnableFX         ( <?php echo($settings["display.fx"]?'true':'false');  ?> );
 			PhotoFrame.setWebcamsInterval  ( <?php echo($settings["webcams.interval"]);           ?> );
-
+			
 			$(document).keypress(function (event) {
 				var letter = String.fromCharCode(event.which);
 				
@@ -61,7 +61,7 @@ require_once("init.php");
 			?>
 
 			<?php if($settings["display.about"]) echo('PhotoFrame.showAbout()'); ?>
-			
+
 			PhotoFrame.start();
 		});
 		</script>
@@ -133,7 +133,10 @@ require_once("init.php");
 						echo('<div class="holder">');
 						echo('<div class="title">' . $cam['title'] . '</div>');
 						echo('<div class="border"></div>');
-						echo('<img style="' . $styleImage . '" id="webcam-' . $nr . '" src="' . $cam['url'] . '"/>');
+						echo('<img style="' . $styleImage . '" id="webcam-' . $nr . '" src="' . $cam['url'] . '"');
+						echo(' onLoad="$(this).css(\'opacity\', 1); $(\'#webcam-error-'.$nr.'\').hide();"'); 
+						echo(' onError="$(this).css(\'opacity\', 0); $(\'#webcam-error-'.$nr.'\').show();"/>');
+						echo('<img class="error" id="webcam-error-' . $nr . '" src="img/webcam_error.png"/>');
 						echo('</div>');
 						echo('</div>');
 					}
