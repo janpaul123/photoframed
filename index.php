@@ -137,9 +137,10 @@ require_once("init.php");
 						
 						echo('<div class="container" style="' . $styleDiv . '">');
 						echo('<div class="holder" id="webcam-' . $nr . '" >');
-						echo('<div class="title">' . $cam['title'] . '</div>');
 						echo('<div class="border"></div>');
 						echo('<img class="webcam" style="' . $styleImage . '" src="' . $cam['url'] . '"/>');
+						echo('<div class="title">' . $cam['title'] . '</div>');
+						echo('<div class="shadow"></div>');
 						echo('<img class="error" id="webcam-error-' . $nr . '" src="img/webcam_error.png"/>');
 						echo('</div>');
 						echo('</div>');

@@ -260,13 +260,16 @@ var PhotoFrame = new function () {
 		
 		$newCam.addClass('webcam');
 		$newCam.attr('style', style);
+		$newCam.css('opacity', 1);
 		$newCam.load(function () {
 			$('#' + id + ' img.webcam').remove();
 			$('#' + id).append($(this));
 			$('#' + id + ' img.error').fadeOut('medium');
+			$('#' + id + ' .shadow').fadeOut('medium');
 		});
 		$newCam.error(function () {
 			$('#' + id + ' img.error').fadeIn('medium');
+			$('#' + id + ' .shadow').fadeIn('medium');
 		});
 		
 		$newCam.attr('src', url);
