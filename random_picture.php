@@ -122,7 +122,7 @@ if ($settings['photo.show_filename'])
 			$newPhotodirs[] = $newPhotodir;
 		}
 		
-		$infoFileName = str_ireplace('\\', '/', $infoFileName);
+		$infoFilename = str_ireplace('\\', '/', $infoFilename);
 		
 		// format the filename nicely
 		$infoFilename = str_ireplace($newPhotodirs,           '',    $infoFilename);
