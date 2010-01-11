@@ -119,7 +119,6 @@ require_once("init.php");
 					foreach ($settings['webcams.cams'] as $nr => $cam)
 					{
 						$styleDiv='';
-						$styleImage='';
 						
 						foreach($styleDivAllowed as $element) 
 						{
@@ -140,7 +139,7 @@ require_once("init.php");
 						echo('<div class="holder">');
 						echo('<div class="border"></div>');
 						echo('<div id="webcam-' . $nr . '" >');
-						echo('<img class="webcam" style="' . $styleImage . '" src="' . $cam['url'] . '"/>');
+						echo('<img class="webcam" style="' . $styleImage . '"/>');
 						echo('</div>');
 						echo('<div class="title">' . $cam['title'] . '</div>');
 						echo('<div class="shadow" id="shadow-webcam-' . $nr . '"></div>');

@@ -78,12 +78,14 @@ $settings['connection.check']          = true;
 // show a wifi error logo instead of a normal error logo
 $settings['connection.wifi']           = true;
 
-// image to check for the connection (must accept ?1298712 behind the url, therefore Google doesn't work..)
+// image to check for the connection 
+// must accept ?<random number> (ie. ?1298712) behind the url, therefore Google doesn't work..
 $settings['connection.url']            = 'http://www.nu.nl/images/logo_nu_nl.gif';
 
 // RSS SETTINGS
 // array of feeds
 // required settings are 'url' (rss feed itself), 'cache' (filename) and 'logo' (path to image)
+// optionally you can use 'all' (description instad of title) and 'width'
 $settings['rss.feeds'][]               = array(
                                                'url'        => 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen', 
                                                'cache'      => 'nu.nl.xml', 
@@ -98,12 +100,12 @@ $settings['rss.feeds'][]               = array(
                                                'url'        => 'http://rss.weeronline.nl/weernieuws/2/nederland.xml', 
                                                'cache'      => 'weather.rss.xml', 
                                                'logo'       => 'user/feedpics/weather.png', 
-                                               'all'        => true,    // use description instead of title
-                                               'width'      => '480px', // custom width
+                                               'all'        => true,
+                                               'width'      => '480px',
                                                );
 
 // error message to show when the downloading of a feeds fails
-$settings['rss.error_message']         = 'De router faalt... alweer!';
+$settings['rss.error_message']         = 'Connection error';
 
 // skip randomly through the feeds
 $settings['rss.random']                = false;

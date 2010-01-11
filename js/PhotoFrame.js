@@ -254,25 +254,31 @@ var PhotoFrame = new function () {
 	}
 	
 	this.updateWebcam = function(id) {
-		var url = PhotoFrame.makeDynamicUrl(PhotoFrame.webcams[id]);
-		
-		var $newCam = $(new Image());
-		var style = $('#' + id + ' img').attr('style');
-		
-		$newCam.attr('style', style);
-		$newCam.css('opacity', 1);
-		$newCam.load(function () {
-			$('#' + id + ' img').remove();
-			$('#' + id).append($(this));
-			$('#error-'  + id).fadeOut('medium');
-			$('#shadow-' + id).fadeOut('medium');
-		});
-		$newCam.error(function () {
-			$('#error-'  + id).fadeIn('medium');
-			$('#shadow-' + id).fadeIn('medium');
-		});
-		
-		$newCam.attr('src', url);
+		if (!PhotoFrame.webcams[id].loading) {
+			PhotoFrame.webcams[id].loading = true;
+			
+			var url = PhotoFrame.makeDynamicUrl(PhotoFrame.webcams[id].url);
+			var $newCam = $(new Image());
+			var style = $('#' + id + ' img').attr('style');
+			
+			$newCam.attr('style', style);
+			$newCam.css('opacity', 1);
+			$newCam.load(function () {
+				PhotoFrame.webcams[id].loading = false;
+				$('#' + id + ' img').remove();
+				$('#' + id).show();
+				$('#' + id).append($(this));
+				$('#error-'  + id).fadeOut('medium');
+				$('#shadow-' + id).fadeOut('medium');
+			});
+			$newCam.error(function () {
+				PhotoFrame.webcams[id].loading = false;
+				$('#error-'  + id).fadeIn('medium');
+				$('#shadow-' + id).fadeIn('medium');
+			});
+			
+			$newCam.attr('src', url);
+		}
 	}
 	
 	this.updateWebcams = function() {
@@ -290,6 +296,18 @@ var PhotoFrame = new function () {
 		}
 		else {
 			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, 60000);
+		}
+	}
+	
+	this.flushWebcams = function() {
+		if (PhotoFrame.webcamsFlushTimer!=null) {
+			clearTimeout(PhotoFrame.webcamsFlushTimer);
+			PhotoFrame.webcamsFlushTimer = null;
+		}
+		PhotoFrame.webcamsFlushTimer = setTimeout(function() { PhotoFrame.flushWebcams() }, 59000);
+		
+		for (var id in PhotoFrame.webcams) {
+			PhotoFrame.webcams[id].loading = false;
 		}
 	}
 	
@@ -334,7 +352,7 @@ var PhotoFrame = new function () {
 			$('#connectionerror').fadeIn('medium');
 		});
 		
-		$img.attr('src', PhotoFrame.makeDynamicUrl('http://www.nu.nl/images/logo_nu_nl.gif'));
+		$img.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.connectionURL));
 		
 		PhotoFrame.connectionTimer = setTimeout(PhotoFrame.checkConnection, 27000);
 	}
@@ -365,6 +383,9 @@ var PhotoFrame = new function () {
 		if (PhotoFrame.bar) PhotoFrame.updateTime();
 		PhotoFrame.updateTraffic();
 		
+		PhotoFrame.flushWebcams();
+		PhotoFrame.updateWebcams();
+		
 		setTimeout(function() {
 			PhotoFrame.hideAbout();
 		}, 4000);
@@ -391,7 +412,7 @@ var PhotoFrame = new function () {
 	}
 	
 	this.addWebcam = function (id, url) {
-		PhotoFrame.webcams[id] = url;
+		PhotoFrame.webcams[id] = {url: url, loading: false};
 	}
 	
 	this.setWebcamsInterval = function (value) {
