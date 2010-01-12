@@ -339,7 +339,7 @@ var PhotoFrame = new function () {
 	this.checkConnection = function () {
 		if (PhotoFrame.connectionTimer!=null) {
 			clearTimeout(PhotoFrame.connectionTimer);
-			PhotoFrame.displayTimer = null;
+			PhotoFrame.connectionTimer = null;
 		}
 		
 		var $img = $(new Image());
