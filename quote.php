@@ -80,10 +80,13 @@ if (empty($data->channel->item))
 $dataArray = array();
 foreach ($data->channel->item as $item) {
 	$text = (isset($feed['all']) && $feed['all'] ? $item->description : $item->title);
-	$dataArray[] = array('text'=>$text, 'url'=>$item->link);
+	
+	if (empty($feed['adexp']) || !preg_match($feed['adexp'], $text)) {
+		$dataArray[] = array('text'=>$text, 'url'=>$item->link);
+	}
 }
 
-$lists = array_chunk($dataArray, 3);
+$lists = array_chunk($dataArray, isset($feed['listcount']) ? $feed['listcount'] : 3);
 
 foreach ($lists as $list) 
 {
