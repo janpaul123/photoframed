@@ -289,13 +289,14 @@ var PhotoFrame = new function () {
 		
 		if (PhotoFrame.webcamsShown) {
 			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, PhotoFrame.webcamsInterval);
-			
-			for (var id in PhotoFrame.webcams) {
-				PhotoFrame.updateWebcam(id);
-			}
 		}
 		else {
 			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, 60000);
+		}
+		
+		// update even if they are not shown, only not as often
+		for (var id in PhotoFrame.webcams) {
+			PhotoFrame.updateWebcam(id);
 		}
 	}
 	
@@ -354,7 +355,7 @@ var PhotoFrame = new function () {
 		
 		$img.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.connectionURL));
 		
-		PhotoFrame.connectionTimer = setTimeout(PhotoFrame.checkConnection, 27000);
+		PhotoFrame.connectionTimer = setTimeout(PhotoFrame.checkConnection, 13000);
 	}
 	
 	this.init = function () {

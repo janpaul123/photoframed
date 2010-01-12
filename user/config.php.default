@@ -72,7 +72,7 @@ $settings['display.keys'][' ']         = array(
  */
 
 // CONNECTION SETTINGS
-// check the internet connection twice a minute
+// check the internet connection a few times per minute
 $settings['connection.check']          = true;
 
 // show a wifi error logo instead of a normal error logo
