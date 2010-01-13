@@ -22,6 +22,7 @@ require_once("init.php");
 <html>
 	<head>
 		<title><?php echo $settings["display.name"] ?></title>
+		
 		<link rel="stylesheet" href="css/default.css" type="text/css" />
 		
 		<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
