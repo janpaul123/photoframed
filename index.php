@@ -95,9 +95,8 @@ require_once("init.php");
 				<a href="http://github.com/janpaul123/photoframed" target="_blank">
 					<img src="img/logo.png?<?php echo $version;?>"/>
 					<div class="title">Photoframed</div>
-					github.com/janpaul123/photoframed
+					<div class="link">github.com/janpaul123/photoframed</div>
 				</a>
-				<br/>
 				press <strong>h</strong> for keyboard commands 
 			</div>
 			<div id="help">

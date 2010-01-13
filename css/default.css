@@ -21,6 +21,7 @@ body {
 	font-family               : Bitstream Vera,Vera,Verdana,Arial;
 	cursor                    : none;
 	color                     : white;
+	text-shadow               : 1px 1px 1px black;
 }
 
 ul {
@@ -98,7 +99,7 @@ img {
 }
 
 #quotes li {
-	font-size                 : 11px;
+	font-size                 : 11.5px;
 }
 
 /* to combine with #bar .holder */
@@ -191,17 +192,22 @@ img {
 	cursor                    : auto;
 }
 
-#about .title {
-	font-size                 : 24px;
-	width                     : 100%;
-	text-align                : center;
-	margin-bottom             : 10px;
-}
-
 #about img {
 	width                     : 260px;
 	height                    : 200px;
 	margin-top                : 10px;
+	margin-bottom             : 10px;
+}
+
+#about .title {
+	font-size                 : 24px;
+	width                     : 100%;
+	text-align                : center;
+}
+
+#about .link {
+	width                     : 100%;
+	text-align                : center;
 	margin-bottom             : 10px;
 }
 
