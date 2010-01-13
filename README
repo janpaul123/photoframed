@@ -1,4 +1,4 @@
-Photogenix is a script written in PHP, HTML, CSS and Javascript for running in a full-screen browser on a custom photoframe.
+Photoframed is a script written in PHP, HTML, CSS and Javascript for running in a full-screen browser on a custom photoframe.
 
 Features:
  - Photos
@@ -17,7 +17,7 @@ Installation instructions:
 
 Upgrading instructions:
  - Make a backup of your user folder
- - Throw away the photogenix directory
+ - Throw away the photoframed directory
  - Copy the new directory
  - Make sure that the cache directory is writeable (sudo chmod -R 0777 cache)
  - Put back the user folder
@@ -27,6 +27,7 @@ Notes:
  - Works best in Firefox, but *could* work just fine in other browsers
  - The animations can be quite heavy for slow machines, you can disable them in the config
  - About message can also be hidden using the config
+ - In 13-01-2010 the name was changed from Photogenix to Photoframed, to prevent confusion with the original branch
  
 Credits:
  - Tommy van der Vorst

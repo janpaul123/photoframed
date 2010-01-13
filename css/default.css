@@ -1,5 +1,5 @@
 /*
- * Photogenix, custom photoframe software
+ * Photoframed, custom photoframe software
  * Copyright (C) 2009-2010
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -180,7 +180,7 @@ img {
 	left                      : 50%;
 	top                       : 50%;
 	width                     : 340px;
-	height                    : 330px;
+	height                    : 320px;
 	text-align                : center;
 	margin-left               : -170px;
 	margin-top                : -150px;
@@ -191,9 +191,18 @@ img {
 	cursor                    : auto;
 }
 
+#about .title {
+	font-size                 : 24px;
+	width                     : 100%;
+	text-align                : center;
+	margin-bottom             : 10px;
+}
+
 #about img {
-	width                     : 340px;
-	height                    : 270px;
+	width                     : 260px;
+	height                    : 200px;
+	margin-top                : 10px;
+	margin-bottom             : 10px;
 }
 
 #help {

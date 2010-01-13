@@ -1,6 +1,6 @@
 <?php
 /*
- * Photogenix, custom photoframe software
+ * Photoframed, custom photoframe software
  * Copyright (C) 2009-2010
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 if (!file_exists(dirname(__FILE__) . '/user/config.php'))
 {
-	die('Please check your photogenix/user folder and rename one of the configuration templates to config.php');
+	die('Please check your photoframed/user folder and rename one of the configuration templates to config.php');
 }
 
 if (!is_writeable(dirname(__FILE__) . '/cache'))

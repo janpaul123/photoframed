@@ -1,6 +1,6 @@
 <?php
 /*
- * Photogenix, custom photoframe software
+ * Photoframed, custom photoframe software
  * Copyright (C) 2009-2010
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ $settings['webcams.cams']              = array();
 
 // DISPLAY SETTINGS
 // name/title of the window
-$settings['display.name']              = 'Photogenix';
+$settings['display.name']              = 'Photoframed';
 
 // interval for retrieving a new picture/quote; in ms
 $settings['display.interval']          = '20000';

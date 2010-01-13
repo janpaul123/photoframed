@@ -1,6 +1,6 @@
 <?php
 /*
- * Photogenix, custom photoframe software
+ * Photoframed, custom photoframe software
  * Copyright (C) 2009-2010
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -91,9 +91,10 @@ require_once("init.php");
 				<img class="overlay" src="<?php echo $settings["traffic.overlay"]; ?>" />
 			</div>
 			<div id="about">
-				<a href="http://github.com/janpaul123/photogenix" target="_blank">
+				<a href="http://github.com/janpaul123/photoframed" target="_blank">
 					<img src="img/logo.png"/>
-					github.com/janpaul123/photogenix
+					<div class="title">Photoframed</div>
+					github.com/janpaul123/photoframed
 				</a>
 				<br/>
 				press <strong>h</strong> for keyboard commands 
