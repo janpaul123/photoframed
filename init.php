@@ -27,3 +27,5 @@ if (!is_writeable(dirname(__FILE__) . '/cache'))
 }
 
 require_once(dirname(__FILE__) . '/user/config.php');
+
+$version = '240';

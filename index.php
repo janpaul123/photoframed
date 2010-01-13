@@ -78,9 +78,9 @@ require_once("init.php");
 					<div class="holder" id="hours"></div>
 					<div class="holder" id="minutes"></div>
 					<?php if ($settings['connection.wifi']) {?>
-						<img id="connectionerror" src="img/transmit_error.png"/>
+						<img id="connectionerror" src="img/transmit_error.png?<?php echo $version;?>"/>
 					<?php } else {?>
-						<img id="connectionerror" src="img/disconnect.png"/>
+						<img id="connectionerror" src="img/disconnect.png?<?php echo $version;?>"/>
 					<?php } ?>
 				</div>
 				<div id="quotes"></div>
@@ -92,7 +92,7 @@ require_once("init.php");
 			</div>
 			<div id="about">
 				<a href="http://github.com/janpaul123/photoframed" target="_blank">
-					<img src="img/logo.png"/>
+					<img src="img/logo.png?<?php echo $version;?>"/>
 					<div class="title">Photoframed</div>
 					github.com/janpaul123/photoframed
 				</a>
@@ -144,7 +144,7 @@ require_once("init.php");
 						echo('</div>');
 						echo('<div class="title">' . $cam['title'] . '</div>');
 						echo('<div class="shadow" id="shadow-webcam-' . $nr . '"></div>');
-						echo('<img class="error"  id="error-webcam-'  . $nr . '" src="img/webcam_error.png"/>');
+						echo('<img class="error"  id="error-webcam-'  . $nr . '" src="img/webcam_error.png?<?php echo $version;?>"/>');
 						echo('</div>');
 						echo('</div>');
 					}
