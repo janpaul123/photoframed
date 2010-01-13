@@ -23,10 +23,10 @@ require_once("init.php");
 	<head>
 		<title><?php echo $settings["display.name"] ?></title>
 		
-		<link rel="stylesheet" href="css/default.css" type="text/css" />
+		<link rel="stylesheet" href="css/default.css?<?php echo $version;?>" type="text/css" />
 		
-		<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-		<script type="text/javascript" src="js/PhotoFrame.js"></script>
+		<script type="text/javascript" src="js/jquery-1.3.2.min.js?<?php echo $version;?>"></script>
+		<script type="text/javascript" src="js/PhotoFrame.js?<?php echo $version;?>"></script>
 		
 		<script type="text/javascript">
 		$(document).ready(function(){
