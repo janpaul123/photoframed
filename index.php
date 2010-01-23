@@ -74,7 +74,7 @@ require_once("init.php");
 		<div id="container">
 			<div id="background"></div>
 			<?php if ($settings["display.bar"]) { ?>
-			<div id="bar">
+			<div id="bar" style="<?php if (isset($settings['display.bar_top'])) echo 'top:'.$settings['display.bar_top']; ?>">
 				<div id="clock">
 					<div class="holder" id="hours"></div>
 					<div class="holder" id="minutes"></div>

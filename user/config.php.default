@@ -38,6 +38,9 @@ $settings['display.fx']                = true;
 // enable or disable the bar
 $settings['display.bar']               = true;
 
+// top position of the bar
+$settings['display.bar_top']           = '40px';
+
 // enable or disable about box
 $settings["display.about"]             = true;
 
