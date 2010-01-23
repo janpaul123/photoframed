@@ -36,74 +36,113 @@ var PhotoFrame = new function () {
 	var connectionURL         = 'http://www.nu.nl/images/logo_nu_nl.gif';
 	
 	this.makeDynamicUrl = function (url) {
+		// make a url like http://lala/ to http://lala/?7398723
+		// or an url like http://lala/?id=50 to http://lala?id=50&7398723
 		return url + (url.indexOf('?') > -1 ? '&' : '?') + (new Date().getTime() + Math.random());
 	}
 	
 	this.updateDisplay = function () {
+		// clear old timers
 		if (PhotoFrame.displayTimer!=null) {
 			clearTimeout(PhotoFrame.displayTimer);
 			PhotoFrame.displayTimer = null;
 		}
+		
+		// set a new timer
 		PhotoFrame.displayTimer = setTimeout(function() { PhotoFrame.updateDisplay() }, PhotoFrame.displayInterval);
+		
+		// update background
 		PhotoFrame.updateBackground();
 	}
 	
 	this.updateBackground = function() {
+		// find the current background
 		var $oldBackground = $('#background img');
+		
+		// create a new background
 		var $newBackground = $(new Image());
 		
+		// have the old background removed and the new one added once loaded
 		$newBackground.load(function () {
-			$(this).hide();
-			$(this).click(PhotoFrame.clickEvent);
+			$newBackground.hide();
+			$newBackground.click(PhotoFrame.clickEvent);
 			$('#background').append($newBackground);
-			$(this).fadeIn('medium', function() {
-				$oldBackground.remove();
+			$newBackground.fadeIn('medium', function() {
 				if (PhotoFrame.bar) PhotoFrame.updateText();
+				
+				// clean up
+				$oldBackground.remove();
+				$oldBackground = undefined;
+				$newBackground = undefined;
 			});
 		});
 		
+		// load the new background from a dynamic url 
 		var path = PhotoFrame.makeDynamicUrl('random_picture.php?width='  + $(window).width() + '&height=' 
 			+ $(window).height());
 		
 		$newBackground.attr('src', path);
+		
+		// clean up
+		path = undefined;
 	}
 	
 	this.updateTraffic = function() {
+		// clear old timers
 		if (PhotoFrame.trafficTimer!=null) {
 			clearTimeout(PhotoFrame.trafficTimer);
 			PhotoFrame.trafficTimer = null;
 		}
+		
+		// set a new timer
 		PhotoFrame.trafficTimer = setTimeout(function() { PhotoFrame.updateTraffic() }, 60000);
 		
+		// only reload when its an external url
 		if (PhotoFrame.trafficMap.indexOf('http') > -1) {
+			// find the current map
 			var $oldMap = $('#traffic img.map');
+			
+			// create a new image
 			var $newMap = $(new Image());
 			
+			// remove the old image and add the new image once loaded
 			$newMap.load(function () {
-				$(this).hide();
-				$(this).addClass('map');
+				$newMap.hide();
+				$newMap.addClass('map');
 				$('#traffic').append($newMap);
 				
-				if (PhotoFrame.trafficShown) $(this).show();
+				if (PhotoFrame.trafficShown) $newMap.show();
 				
+				// clean up
 				$oldMap.remove();
+				$oldMap = undefined;
+				$newMap = undefined;
 			});
 			
+			// load the new image from a dynamic url
 			$newMap.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.trafficMap)); 
 		}
 		
+		// only reload when its an external url
 		if (PhotoFrame.trafficOverlay.indexOf('http') > -1) {
+			// find the current overlay
 			var $oldOverlay = $('#traffic img.overlay');
+			
+			// create a new image
 			var $newOverlay = $(new Image());
 			
+			// remove the old image and add the new image once loaded
 			$newOverlay.load(function () {
-				$(this).hide();
-				$(this).addClass('overlay');
+				$newOverlay.hide();
+				$newOverlay.addClass('overlay');
 				$('#traffic').append($newOverlay);
 				
-				if (PhotoFrame.trafficShown) $(this).show();
+				if (PhotoFrame.trafficShown) $newOverlay.show();
 				
+				// clean up
 				$oldOverlay.remove();
+				$oldOverlay = undefined;
+				$newOverlay = undefined;
 			});
 			
 			$newOverlay.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.trafficOverlay)); 
@@ -111,88 +150,130 @@ var PhotoFrame = new function () {
 	}
 	
 	this.updateText = function () {
+		// find the old quote block
 		var $oldQuote = $('#quotes > .block');
+		
+		// create a new block
 		var $newQuote = $('<div></div>');
 		
 		$newQuote.addClass('holder');
 		$newQuote.addClass('block');
+		
+		// load the new quote
 		$newQuote.load('quote.php', {timestamp: (new Date().getTime() + Math.random())}, function() {
+			// add the new quote, but still invisible
 			$newQuote.css('top', '120px');
 			$('#quotes').append($newQuote);
+			
+			// wait a bit before showing the new quote
 			setTimeout(function() {
+				// slide in the new quote
 				$newQuote.animate({
 					top: "0px"
 				}, "medium");
 				
+				// remove the old quote, but add an delay when we're animating
 				if (jQuery.fx.off) {
 					$oldQuote.remove();
+					$oldQuote = undefined;
 				}
 				else {
 					setTimeout(function() {
 						$oldQuote.fadeOut("fast", function() {
-							$(this).remove();
+							$oldQuote.remove();
+							$oldQuote = undefined;
 						});
 					}, 150);
 				}
+				
+				// clean up
+				$newQuote = undefined;
 			}, 200);
 		});
 	}
 	
 	this.updateTime = function () {
-		var date = new Date();
-		
+		// clear old timers
 		if (PhotoFrame.clockTimer!=null) {
 			clearTimeout(PhotoFrame.clockTimer);
 			PhotoFrame.clockTimer = null;
 		}
+		
+		// set a new timer
 		PhotoFrame.clockTimer = setTimeout(function() { PhotoFrame.updateTime() }, 5000);
 		
-		if (date.getMinutes() != PhotoFrame.minutes) {
+		// check if the date changed
+		if ((new Date()).getMinutes() != PhotoFrame.minutes) {
 			PhotoFrame.updateMinutes();
 		}
 	}
 	
 	this.updateMinutes = function () {
-		var date = new Date();
-		PhotoFrame.minutes = date.getMinutes();
+		// set the number of minutes
+		PhotoFrame.minutes = (new Date()).getMinutes();
 		
+		// find the old minute div
 		var $oldMinutes = $('#minutes > .number');
+		
+		// create a new minute div
 		var $newMintues = $('<div></div>');
+		
+		// build the minute string
 		var strMinutes = '' + PhotoFrame.minutes;
 		if(strMinutes.length < 2) strMinutes = '0' + strMinutes;
 		
+		// add some info, hide it and add it
 		$newMintues.addClass('number');
 		$newMintues.text(strMinutes);
 		$newMintues.css('top', '120px');
 		$('#minutes').append($newMintues);
-		$newMintues.animate({
-			top: "0px"
-		}, "medium", null, function() {
-			if (date.getHours() != PhotoFrame.hours) {
+		
+		// slide the new minute in
+		$newMintues.animate({top: "0px"}, "medium", null, function() {
+			// when done, check the hours
+			if ((new Date()).getHours() != PhotoFrame.hours) {
 				PhotoFrame.updateHours();
 			}
+			
+			// clean up
+			$newMinutes = undefined;
 		});
+		
+		// fade out the old minutes
 		$oldMinutes.fadeOut("medium", function() {
-			$(this).remove();
+			// clean up
+			$oldMinutes.remove();
+			$oldMinutes = undefined;
 		});
 	}
 	
 	this.updateHours = function () {
-		var date = new Date();
-		PhotoFrame.hours = date.getHours();
+		// set the number of hours
+		PhotoFrame.hours = (new Date()).getHours();
 		
+		// find the old hours div
 		var $oldHours = $('#hours > .number');
+		
+		// create a new hours div
 		var $newHours = $('<div></div>');
 		
+		// add some info, hide it and add it
 		$newHours.addClass('number');
 		$newHours.text(''+PhotoFrame.hours);
 		$newHours.css('top', '120px');
 		$('#hours').append($newHours);
-		$newHours.animate({
-			top: "0px"
-		}, "medium");
+		
+		// slide the new hour in
+		$newHours.animate({top: "0px"}, "medium",function() {
+			// clean up
+			$newHours = undefined;
+		});
+		
+		// fade out the old hours
 		$oldHours.fadeOut("medium", function() {
-			$(this).remove();
+			// clean up
+			$oldHours.remove();
+			$oldHours = undefined;
 		});
 	}
 	
@@ -254,39 +335,79 @@ var PhotoFrame = new function () {
 	}
 	
 	this.updateWebcam = function(id) {
+		// if the webcam is not already loading, load it
 		if (!PhotoFrame.webcams[id].loading) {
 			PhotoFrame.webcams[id].loading = true;
 			
+			// build a url
 			var url = PhotoFrame.makeDynamicUrl(PhotoFrame.webcams[id].url);
+			
+			// create a new cam image
 			var $newCam = $(new Image());
+			
+			// find the old style
 			var style = $('#' + id + ' img').attr('style');
 			
+			// apply the old style to the new cam, plus some more options
 			$newCam.attr('style', style);
 			$newCam.css('opacity', 1);
+			
+			// add a load event
 			$newCam.load(function () {
 				PhotoFrame.webcams[id].loading = false;
+				clearTimeout(PhotoFrame.webcams[id].timer);
+				PhotoFrame.webcams[id].timer = null;
+				
+				// clean up old images
 				$('#' + id + ' img').remove();
+				
+				// show the new image
 				$('#' + id).show();
-				$('#' + id).append($(this));
+				$('#' + id).append($newCam);
+				
+				// fade out error and shadow divs
 				$('#error-'  + id).fadeOut('medium');
 				$('#shadow-' + id).fadeOut('medium');
-			});
-			$newCam.error(function () {
-				PhotoFrame.webcams[id].loading = false;
-				$('#error-'  + id).fadeIn('medium');
-				$('#shadow-' + id).fadeIn('medium');
+				
+				// clean up
+				$newCam.unbind();
+				$newCam = undefined;
 			});
 			
+			$newCam.error(function () {
+				PhotoFrame.webcams[id].loading = false;
+				clearTimeout(PhotoFrame.webcams[id].timer);
+				PhotoFrame.webcams[id].timer = null;
+				
+				// show error and shadow divs
+				$('#error-'  + id).fadeIn('medium');
+				$('#shadow-' + id).fadeIn('medium');
+				
+				// clean up
+				$newCam.unbind();
+				$newCam = undefined;
+			});
+			
+			PhotoFrame.webcams[id].timer = function() {
+				if (PhotoFrame.webcams[id].loading) {
+					$newCam.error();
+				}
+			};
+			setTimeout(PhotoFrame.webcams[id].timer, 2000);
+			
+			// load the new cam image
 			$newCam.attr('src', url);
 		}
 	}
 	
 	this.updateWebcams = function() {
+		// clear old timers
 		if (PhotoFrame.webcamsTimer!=null) {
 			clearTimeout(PhotoFrame.webcamsTimer);
 			PhotoFrame.webcamsTimer = null;
 		}
 		
+		// set a normal timer, or a timer every minute when the webcams are hidden
 		if (PhotoFrame.webcamsShown) {
 			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, PhotoFrame.webcamsInterval);
 		}
@@ -346,11 +467,16 @@ var PhotoFrame = new function () {
 		
 		$img.load(function () {
 			$('#connectionerror').fadeOut('medium');
-			$(this).remove();
+			
+			$img.remove();
+			$img = undefined;
 		});
 		
 		$img.error(function () {
 			$('#connectionerror').fadeIn('medium');
+			
+			$img.unbind();
+			$img = undefined;
 		});
 		
 		$img.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.connectionURL));
@@ -413,7 +539,7 @@ var PhotoFrame = new function () {
 	}
 	
 	this.addWebcam = function (id, url) {
-		PhotoFrame.webcams[id] = {url: url, loading: false};
+		PhotoFrame.webcams[id] = {url: url, loading: false, timer: null};
 	}
 	
 	this.setWebcamsInterval = function (value) {
