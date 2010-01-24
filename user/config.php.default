@@ -147,12 +147,13 @@ $settings['photo.max_from_dir']        = 10;
 
 
 // WEBCAM SETTINGS 
-// interval for updating webcams, in ms
+// default interval for updating webcams, in ms
 $settings['webcams.interval']          = 5000;
 
 // array of webcams
 // you can use 'url' (required), 'title', (min/max-)'width', (min/max-)'height', 
-// 'left', 'right', 'top', 'bottom', 'float' 
+// 'left', 'right', 'top', 'bottom', 'float'
+// you can also set 'interval' for a custom interval
 $settings['webcams.cams'][]            = array(
                                                'title'      => 'Grote Markt, Groningen',
                                                'url'        => 'http://www.rtvnoord.nl/webcam/RTVN-GM.jpg',

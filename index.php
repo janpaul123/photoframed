@@ -58,7 +58,8 @@ require_once("init.php");
 			<?php 
 				foreach ($settings['webcams.cams'] as $nr => $cam)
 				{
-					echo('PhotoFrame.addWebcam("webcam-' . $nr . '", "' . $cam['url'] . '");');
+					echo('PhotoFrame.addWebcam("webcam-' . $nr . '", "' . $cam['url'] . '", ' 
+						. (isset($cam['interval']) ? $cam['interval'] : '0') . ');');
 				}
 			?>
 

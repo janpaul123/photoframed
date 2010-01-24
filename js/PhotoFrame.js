@@ -355,8 +355,8 @@ var PhotoFrame = new function () {
 			// add a load event
 			$newCam.load(function () {
 				PhotoFrame.webcams[id].loading = false;
-				clearTimeout(PhotoFrame.webcams[id].timer);
-				PhotoFrame.webcams[id].timer = null;
+				clearTimeout(PhotoFrame.webcams[id].errorTimer);
+				PhotoFrame.webcams[id].errorTimer = null;
 				
 				// clean up old images
 				$('#' + id + ' img').remove();
@@ -376,24 +376,28 @@ var PhotoFrame = new function () {
 			
 			$newCam.error(function () {
 				PhotoFrame.webcams[id].loading = false;
-				clearTimeout(PhotoFrame.webcams[id].timer);
-				PhotoFrame.webcams[id].timer = null;
+				clearTimeout(PhotoFrame.webcams[id].errorTimer);
+				PhotoFrame.webcams[id].errorTimer = null;
 				
 				// show error and shadow divs
 				$('#error-'  + id).fadeIn('medium');
 				$('#shadow-' + id).fadeIn('medium');
 				
 				// clean up
-				$newCam.unbind();
-				$newCam = undefined;
+				if ($newCam != undefined) {
+					$newCam.unbind();
+					$newCam = undefined;
+				}
 			});
 			
-			PhotoFrame.webcams[id].timer = function() {
+			PhotoFrame.webcams[id].errorTimer = function() {
 				if (PhotoFrame.webcams[id].loading) {
-					$newCam.error();
+					if ($newCam != undefined) {
+						$newCam.error();
+					}
 				}
 			};
-			setTimeout(PhotoFrame.webcams[id].timer, 2000);
+			setTimeout(PhotoFrame.webcams[id].errorTimer, 5000);
 			
 			// load the new cam image
 			$newCam.attr('src', url);
@@ -407,17 +411,13 @@ var PhotoFrame = new function () {
 			PhotoFrame.webcamsTimer = null;
 		}
 		
-		// set a normal timer, or a timer every minute when the webcams are hidden
-		if (PhotoFrame.webcamsShown) {
-			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, PhotoFrame.webcamsInterval);
-		}
-		else {
-			PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, 60000);
-		}
+		PhotoFrame.webcamsTimer = setTimeout(function() { PhotoFrame.updateWebcams() }, 60000);
 		
 		// update even if they are not shown, only not as often
-		for (var id in PhotoFrame.webcams) {
-			PhotoFrame.updateWebcam(id);
+		if (!PhotoFrame.webcamsShown) {
+			for (var id in PhotoFrame.webcams) {
+				PhotoFrame.updateWebcam(id);
+			}
 		}
 	}
 	
@@ -442,10 +442,25 @@ var PhotoFrame = new function () {
 		}
 	}
 	
+	this.updateWebcamTimer = function(id) {
+		if (PhotoFrame.webcams[id].updateTimer!=null) {
+			clearTimeout(PhotoFrame.webcams[id].updateTimer);
+			PhotoFrame.webcams[id].updateTimer = null;
+		}
+		
+		PhotoFrame.webcams[id].updateTimer = setTimeout(function() { PhotoFrame.updateWebcamTimer(id) }, 
+				PhotoFrame.webcams[id].interval);
+		
+		PhotoFrame.updateWebcam(id);
+	}
+	
 	this.showWebcams = function () {
 		if (!PhotoFrame.webcamsShown) $('#webcams, #webcams div').fadeIn('medium');
 		PhotoFrame.webcamsShown = true; // the order here is important!
-		PhotoFrame.updateWebcams();
+
+		for (var id in PhotoFrame.webcams) {
+			PhotoFrame.updateWebcamTimer(id);
+		}
 	}
 	
 	this.hideWebcams = function () {
@@ -455,6 +470,13 @@ var PhotoFrame = new function () {
 			});
 		}
 		PhotoFrame.webcamsShown = false;
+		
+		for (var id in PhotoFrame.webcams) {
+			if (PhotoFrame.webcams[id].updateTimer != null) {
+				clearTimeout(PhotoFrame.webcams[id].updateTimer);
+				PhotoFrame.webcams[id].updateTimer = null;
+			}
+		}
 	}
 	
 	this.checkConnection = function () {
@@ -538,8 +560,10 @@ var PhotoFrame = new function () {
 		PhotoFrame.trafficOverlay = value;
 	}
 	
-	this.addWebcam = function (id, url) {
-		PhotoFrame.webcams[id] = {url: url, loading: false, timer: null};
+	this.addWebcam = function (id, url, interval) {
+		if (interval <= 0) interval = this.webcamsInterval;
+		
+		PhotoFrame.webcams[id] = {url: url, loading: false, errorTimer: null, updateTimer: null, interval: interval};
 	}
 	
 	this.setWebcamsInterval = function (value) {
