@@ -84,8 +84,7 @@ var PhotoFrame = new function () {
 		});
 		
 		// load the new background from a dynamic url 
-		var path = 'random_picture.php?width='  + $(window).width() + '&height=' 
-		+ $(window).height();
+		var path = 'random_picture.php?width='  + $(window).width() + '&height=' + $(window).height();
 		if (PhotoFrame.fileCount > 0) {
 			var newFile = -1;
 			do {
@@ -260,8 +259,10 @@ var PhotoFrame = new function () {
 				else {
 					setTimeout(function() {
 						$oldQuote.fadeOut("fast", function() {
-							$oldQuote.remove();
-							$oldQuote = undefined;
+							if ($oldQuote != undefined) {
+								$oldQuote.remove();
+								$oldQuote = undefined;
+							}
 						});
 					}, 150);
 				}
