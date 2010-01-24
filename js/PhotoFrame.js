@@ -21,11 +21,17 @@ var PhotoFrame = new function () {
 	var displayTimer          = null;
 	var clockTimer            = null;
 	var trafficTimer          = null;
+	var weatherTimer          = null;
 	var displayInterval       = 5000;
+	var fileCount             = 0;
+	var lastFile              = -1;
 	var bar                   = true;
 	var trafficShown          = false;
 	var trafficMap            = 'user/maps/nederland.png';
 	var trafficOverlay        = 'http://www.traphic.nl/generated/verkeersinformatie.png';
+	var weatherShown          = false;
+	var weatherMap            = '';
+	var weatherOverlay        = '';
 	var webcams               = null;
 	var webcamsTimer          = null;
 	var webcamsInterval       = 5000;
@@ -78,8 +84,20 @@ var PhotoFrame = new function () {
 		});
 		
 		// load the new background from a dynamic url 
-		var path = PhotoFrame.makeDynamicUrl('random_picture.php?width='  + $(window).width() + '&height=' 
-			+ $(window).height());
+		var path = 'random_picture.php?width='  + $(window).width() + '&height=' 
+		+ $(window).height();
+		if (PhotoFrame.fileCount > 0) {
+			var newFile = -1;
+			do {
+				newFile = Math.floor(Math.random() * PhotoFrame.fileCount);
+			} while(newFile == PhotoFrame.lastFile && PhotoFrame.fileCount > 1);
+			
+			PhotoFrame.lastFile = newFile
+			path += '&nr=' + newFile;
+		}
+		else {
+			path = PhotoFrame.makeDynamicUrl(path);
+		}
 		
 		$newBackground.attr('src', path);
 		
@@ -146,6 +164,68 @@ var PhotoFrame = new function () {
 			});
 			
 			$newOverlay.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.trafficOverlay)); 
+		}
+	}
+	
+	this.updateWeather = function() {
+		// clear old timers
+		if (PhotoFrame.weatherTimer!=null) {
+			clearTimeout(PhotoFrame.weatherTimer);
+			PhotoFrame.weatherTimer = null;
+		}
+		
+		// set a new timer
+		PhotoFrame.weatherTimer = setTimeout(function() { PhotoFrame.updateWeather() }, 60000);
+		
+		// only reload when its an external url
+		if (PhotoFrame.weatherMap.indexOf('http') > -1) {
+			// find the current map
+			var $oldMap = $('#weather img.map');
+			
+			// create a new image
+			var $newMap = $(new Image());
+			
+			// remove the old image and add the new image once loaded
+			$newMap.load(function () {
+				$newMap.hide();
+				$newMap.addClass('map');
+				$('#weather').append($newMap);
+				
+				if (PhotoFrame.weatherShown) $newMap.show();
+				
+				// clean up
+				$oldMap.remove();
+				$oldMap = undefined;
+				$newMap = undefined;
+			});
+			
+			// load the new image from a dynamic url
+			$newMap.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.weatherMap)); 
+		}
+		
+		// only reload when its an external url
+		if (PhotoFrame.weatherOverlay.indexOf('http') > -1) {
+			// find the current overlay
+			var $oldOverlay = $('#weather img.overlay');
+			
+			// create a new image
+			var $newOverlay = $(new Image());
+			
+			// remove the old image and add the new image once loaded
+			$newOverlay.load(function () {
+				$newOverlay.hide();
+				$newOverlay.addClass('overlay');
+				$('#weather').append($newOverlay);
+				
+				if (PhotoFrame.weatherShown) $newOverlay.show();
+				
+				// clean up
+				$oldOverlay.remove();
+				$oldOverlay = undefined;
+				$newOverlay = undefined;
+			});
+			
+			$newOverlay.attr('src', PhotoFrame.makeDynamicUrl(PhotoFrame.weatherOverlay)); 
 		}
 	}
 	
@@ -287,6 +367,7 @@ var PhotoFrame = new function () {
 	}
 	
 	this.showTraffic = function () {
+		this.hideWeather();
 		if (!PhotoFrame.trafficShown) $('#traffic, #traffic img').fadeIn('medium');
 		PhotoFrame.trafficShown = true;
 	}
@@ -294,6 +375,26 @@ var PhotoFrame = new function () {
 	this.hideTraffic = function () {
 		if (PhotoFrame.trafficShown) $('#traffic, #traffic img').fadeOut('medium');
 		PhotoFrame.trafficShown = false;
+	}
+	
+	this.toggleWeather = function () {
+		if (PhotoFrame.weatherShown) {
+			PhotoFrame.hideWeather();
+		}
+		else {
+			PhotoFrame.showWeather();
+		}
+	}
+	
+	this.showWeather = function () {
+		this.hideTraffic();
+		if (!PhotoFrame.weatherShown) $('#weather, #weather img').fadeIn('medium');
+		PhotoFrame.weatherShown = true;
+	}
+	
+	this.hideWeather = function () {
+		if (PhotoFrame.weatherShown) $('#weather, #weather img').fadeOut('medium');
+		PhotoFrame.weatherShown = false;
 	}
 	
 	this.toggleAbout = function () {
@@ -516,6 +617,7 @@ var PhotoFrame = new function () {
 		
 		PhotoFrame.webcams      = new Array();
 		PhotoFrame.trafficShown = false;
+		PhotoFrame.weatherShown = false;
 		PhotoFrame.webcamsShown = false;
 		PhotoFrame.aboutShown   = false;
 		PhotoFrame.helpShown    = false;
@@ -531,6 +633,7 @@ var PhotoFrame = new function () {
 		PhotoFrame.updateDisplay();
 		if (PhotoFrame.bar) PhotoFrame.updateTime();
 		PhotoFrame.updateTraffic();
+		PhotoFrame.updateWeather();
 		
 		PhotoFrame.flushWebcams();
 		PhotoFrame.updateWebcams();
@@ -560,6 +663,14 @@ var PhotoFrame = new function () {
 		PhotoFrame.trafficOverlay = value;
 	}
 	
+	this.setWeatherMap = function (value) {
+		PhotoFrame.weatherMap = value;
+	}
+	
+	this.setWeatherOverlay = function (value) {
+		PhotoFrame.weatherOverlay = value;
+	}
+	
 	this.addWebcam = function (id, url, interval) {
 		if (interval <= 0) interval = this.webcamsInterval;
 		
@@ -572,5 +683,9 @@ var PhotoFrame = new function () {
 	
 	this.setConnectionURL = function (value) {
 		PhotoFrame.connectionURL = value;
+	}
+	
+	this.setFileCount = function (value) {
+		PhotoFrame.fileCount = value;
 	}
 };

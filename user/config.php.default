@@ -46,6 +46,12 @@ $settings["display.about"]             = true;
 
 // key options
 // use 'function', 'title' and 'key' (optional description for things like spaces)
+//
+// Some examples:
+// - PhotoFrame.toggleTraffic(),  PhotoFrame.showTraffic(),      PhotoFrame.hideTraffic()
+// - PhotoFrame.toggleWeather(),  PhotoFrame.showWeather(),      PhotoFrame.hideWeather()
+// - PhotoFrame.toggleWebcams(),  PhotoFrame.showWebcams(),      PhotoFrame.hideWebcams()
+// - PhotoFrame.updateDisplay(),  PhotoFrame.updateBackground(), PhotoFrame.updateText()
 $settings['display.keys']['h']         = array(
                                                'function'   => 'PhotoFrame.toggleHelp()',
                                                'title'      => 'Toggle help box',
@@ -55,6 +61,10 @@ $settings['display.keys']['t']         = array(
                                                'title'      => 'Toggle traffic map',
                                               );
 $settings['display.keys']['w']         = array(
+                                               'function'   => 'PhotoFrame.toggleWeather()', 
+                                               'title'      => 'Toggle weather map',
+                                              );
+$settings['display.keys']['c']         = array(
                                                'function'   => 'PhotoFrame.toggleWebcams()',
                                                'title'      => 'Toggle webcams',
                                               );
@@ -67,12 +77,6 @@ $settings['display.keys'][' ']         = array(
                                                'title'      => 'Update display',
                                                'key'        => 'space',
                                               );
-/*
- * Some examples:
- * - PhotoFrame.toggleTraffic(),  PhotoFrame.showTraffic(),      PhotoFrame.hideTraffic()
- * - PhotoFrame.toggleWebcams(),  PhotoFrame.showWebcams(),      PhotoFrame.hideWebcams()
- * - PhotoFrame.updateDisplay(),  PhotoFrame.updateBackground(), PhotoFrame.updateText()
- */
 
 // CONNECTION SETTINGS
 // check the internet connection a few times per minute
@@ -125,6 +129,14 @@ $settings['traffic.map']               = 'user/maps/nederland.png';
 $settings['traffic.overlay']           = 'http://www.traphic.nl/generated/verkeersinformatie.png';
 
 
+// WEATHER SETTINGS
+// weather map image, will be refreshed every minute
+$settings['weather.map']               = 'http://www3.buienradar.nl/images.aspx?jaar=-3&soort=sp-loop';
+
+// weather overlay image, will be refreshed every minute (this one is optional)
+$settings['weather.overlay']           = false;
+
+
 // PHOTO SETTINGS
 // array of directories
 // you can give multiple dirs with images, ie. C:\Photos (Win) or /photos (Linux)
@@ -142,7 +154,11 @@ $settings['photo.show_filename']       = true;
 // format the filename: slashes will become ' - ' and '.'/'_' will become spaces
 $settings['photo.format_filename']     = true;
 
+// collapse directories into one slideshow; also enables client caching
+$settings['photo.collapse_dirs']       = true;
+
 // maximum number of photos from one directory before showing a new directory
+// note that in order for this to work you should disable the collapse_dirs option above
 $settings['photo.max_from_dir']        = 10;
 
 
@@ -172,11 +188,3 @@ $settings['webcams.cams'][]            = array(
                                                'max-height' => '180px',
                                               );
                                               
-$settings['webcams.cams'][]            = array(
-                                               'title'      => 'Rijksstraatweg, Haren',
-                                               'url'        => 'http://ikbenthuisop.homelinux.com/jpg/plaatje.jpg',
-                                               'min-width'  => '150px',
-                                               'max-width'  => '280px',
-                                               'min-height' => '100px',
-                                               'max-height' => '180px',
-                                              );

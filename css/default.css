@@ -159,7 +159,7 @@ img {
 	top                       : 65px;
 }
 
-#traffic img {
+#traffic img, #weather img {
 	position                  : absolute;
 	right                     : 60px;
 	bottom                    : 10px;
@@ -169,7 +169,7 @@ img {
 	display                   : none;
 }
 
-#traffic img.overlay {
+#traffic img.overlay, #weather img.overlay {
 	z-index                   : 10;
 	opacity                   : 0.9;
 }

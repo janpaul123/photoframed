@@ -34,10 +34,21 @@ require_once("init.php");
 			PhotoFrame.setDisplayInterval  ( <?php echo($settings["display.interval"]);           ?> );
 			PhotoFrame.setTrafficMap       ("<?php echo($settings["traffic.map"]);                ?>");
 			PhotoFrame.setTrafficOverlay   ("<?php echo($settings["traffic.overlay"]);            ?>");
+			PhotoFrame.setWeatherMap       ("<?php echo($settings["weather.map"]);                ?>");
+			PhotoFrame.setWeatherOverlay   ("<?php echo($settings["weather.overlay"]);            ?>");
 			PhotoFrame.setEnableBar        ( <?php echo($settings["display.bar"]?'true':'false'); ?> );
 			PhotoFrame.setEnableFX         ( <?php echo($settings["display.fx"]?'true':'false');  ?> );
 			PhotoFrame.setWebcamsInterval  ( <?php echo($settings["webcams.interval"]);           ?> );
 			PhotoFrame.setConnectionURL    ("<?php echo(isset($settings["connection.url"])?$settings["connection.url"]:'http://www.nu.nl/images/logo_nu_nl.gif'); ?>");
+
+			<?php 
+				if (isset($settings['photo.collapse_dirs']) && $settings['photo.collapse_dirs'])
+				{
+					require_once('dirs.php');
+					$files = findAllFiles($settings['photo.dirs']);
+					echo('PhotoFrame.setFileCount(' . trim(count($files)) . ');');
+				}
+			?>
 			
 			$(document).keypress(function (event) {
 				var letter = String.fromCharCode(event.which);
@@ -89,8 +100,16 @@ require_once("init.php");
 			</div>
 			<?php } ?>
 			<div id="traffic">
-				<img class="map" src="<?php echo $settings["traffic.map"]; ?>"/>
-				<img class="overlay" src="<?php echo $settings["traffic.overlay"]; ?>" />
+				<?php
+					if (!empty($settings['traffic.map']))     echo '<img class="map"     src="' . $settings['traffic.map']     . '"/>';
+					if (!empty($settings['traffic.overlay'])) echo '<img class="overlay" src="' . $settings['traffic.overlay'] . '"/>';
+				?>	
+			</div>
+			<div id="weather">
+				<?php
+					if (!empty($settings['weather.map']))     echo '<img class="map"     src="' . $settings['weather.map']     . '"/>';
+					if (!empty($settings['weather.overlay'])) echo '<img class="overlay" src="' . $settings['weather.overlay'] . '"/>';
+				?>	
 			</div>
 			<div id="about">
 				<a href="http://github.com/janpaul123/photoframed" target="_blank">

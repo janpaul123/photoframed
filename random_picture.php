@@ -18,89 +18,50 @@
 
 header('Content-type: image/jpeg');
 session_start();
-require_once("init.php");
+require_once('init.php');
+require_once('dirs.php');
 
-function findDirsRecursive($path, array &$dirs) 
+if (isset($settings['photo.collapse_dirs']) && $settings['photo.collapse_dirs'])
 {
-    if ($dir = @opendir($path)) 
-	{
-		$dirs[] = $path;
-        while (false !== ($file = readdir($dir)))
-		{
-			if (is_dir($path . '/' . $file) && $file != '.' && $file != '..' && $file != '/')
-			{
-				findDirsRecursive($path . '/' . $file, $dirs);
-			}
-        }
-        
-        closedir($dir);
-    }
-    return $dirs;
-}
-
-function newDir($paths)
-{
-	$dirs = array();
-	foreach ($paths as $path) 
-	{
-		// strip trailing slashes
-		if (substr($path, -1) == '/' || substr($path, -1) == '\\') $path = substr($path, 0, -1);
-		 
-		findDirsRecursive($path, $dirs);
-	}
+	$files = findAllFiles($settings['photo.dirs']);
+	$file = $files[$_GET['nr']];
 	
-	return $dirs[rand(0, count($dirs)-1)];
+	$expires = 60*60*24*365;
+	header('Pragma: public');
+	header('Cache-Control: maxage='.$expires);
+	header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
 }
-
-
-function findFiles($path)
+else
 {
-	if ($dir = @opendir($path)) 
-	{
-		$files = array();
-        while (false !== ($file = readdir($dir)))
-		{
-			if (strtolower(substr($file,strlen($file)-4,4)) == '.jpg') 
-			{
-				$files[] = $path . '/' . $file;
-			}
-		}
-		
-		closedir($dir);
-	}
+	$dir       = @$_SESSION['display.dir'];
+	$dircount  = @$_SESSION['display.dircount'];
+	$previous  = @$_SESSION['display.previous'];
 	
-	return $files;
-}
-
-
-$dir       = @$_SESSION['display.dir'];
-$dircount  = @$_SESSION['display.dircount'];
-$previous  = @$_SESSION['display.previous'];
-
-if (strlen($dir) <= 0 || file_exists($dir)) {
-	$dir      = newDir($settings['photo.dirs']);
-	$dircount = 0;
-}
-
-$files = findFiles($dir);
-if ($dircount > $settings['photo.max_from_dir'] || $dircount >= count($files)) {
-	$tries        = 0;
-	do {
+	if (strlen($dir) <= 0 || file_exists($dir)) {
 		$dir      = newDir($settings['photo.dirs']);
 		$dircount = 0;
-		$files    = findFiles($dir);
-	} while ((count($files) <= 0 || $previousDir == $dir) && $tries++ < 100);
+	}
+	
+	$files = findFiles($dir);
+	if ($dircount > $settings['photo.max_from_dir'] || $dircount >= count($files)) {
+		$tries        = 0;
+		do {
+			$dir      = newDir($settings['photo.dirs']);
+			$dircount = 0;
+			$files    = findFiles($dir);
+		} while ((count($files) <= 0 || $previousDir == $dir) && $tries++ < 100);
+	}
+	
+	do
+	{
+		$file = $files[rand(0, count($files)-1)];
+	} while ($file == $previous && count($files) > 1);
+	
+	$dircount++;
+	$_SESSION['display.dir']      = $dir;
+	$_SESSION['display.dircount'] = $dircount;
+	$_SESSION['display.previous']  = $file;
 }
-
-do
-{
-	$file = $files[rand(0, count($files)-1)];
-} while ($file == $previous && count($files) > 1);
-
-$dircount++;
-$_SESSION['display.dir']      = $dir;
-$_SESSION['display.dircount'] = $dircount;
-$_SESSION['display.previous']  = $file;
 
 $width  = $_REQUEST['width'];
 $height = $_REQUEST['height'];
@@ -133,6 +94,7 @@ if ($settings['photo.show_filename'])
 	
 	$info .= $infoFilename;
 }
+
 
 // add the copyright notification
 $info .= $settings['photo.copyright'];
