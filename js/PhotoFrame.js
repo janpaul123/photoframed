@@ -122,6 +122,9 @@ var PhotoFrame = new function () {
 			// create a new image
 			var $newMap = $(new Image());
 			
+			// apply the old style to the new image
+			$newMap.attr('style', $oldMap.attr('style'));
+			
 			// remove the old image and add the new image once loaded
 			$newMap.load(function () {
 				$newMap.hide();
@@ -147,6 +150,9 @@ var PhotoFrame = new function () {
 			
 			// create a new image
 			var $newOverlay = $(new Image());
+			
+			// apply the old style to the new image
+			$newOverlay.attr('style', $oldOverlay.attr('style'));
 			
 			// remove the old image and add the new image once loaded
 			$newOverlay.load(function () {
@@ -184,6 +190,9 @@ var PhotoFrame = new function () {
 			// create a new image
 			var $newMap = $(new Image());
 			
+			// apply the old style to the new image
+			$newMap.attr('style', $oldMap.attr('style'));
+			
 			// remove the old image and add the new image once loaded
 			$newMap.load(function () {
 				$newMap.hide();
@@ -209,6 +218,9 @@ var PhotoFrame = new function () {
 			
 			// create a new image
 			var $newOverlay = $(new Image());
+			
+			// apply the old style to the new image
+			$newOverlay.attr('style', $oldOverlay.attr('style'));
 			
 			// remove the old image and add the new image once loaded
 			$newOverlay.load(function () {

@@ -128,6 +128,13 @@ $settings['traffic.map']               = 'user/maps/nederland.png';
 // traffic overlay image, will be refreshed every minute (this one is optional)
 $settings['traffic.overlay']           = 'http://www.traphic.nl/generated/verkeersinformatie.png';
 
+// optional width and height: useful for if the map and overlay are different in size, 
+// or if you want to set a custom maximum size; as both variables still will be bound by
+// 75% of the browser window dimensions
+// if you get crazy stretches, try setting only the width or only the height
+$settings['traffic.width']             = false;
+$settings['traffic.height']            = 2011;
+
 
 // WEATHER SETTINGS
 // weather map image, will be refreshed every minute
@@ -135,6 +142,10 @@ $settings['weather.map']               = 'http://www3.buienradar.nl/images.aspx?
 
 // weather overlay image, will be refreshed every minute (this one is optional)
 $settings['weather.overlay']           = false;
+
+// see above (traffic.width and traffic.height)
+$settings['weather.width']             = false;
+$settings['weather.height']            = false;
 
 
 // PHOTO SETTINGS

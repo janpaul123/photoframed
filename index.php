@@ -101,14 +101,22 @@ require_once("init.php");
 			<?php } ?>
 			<div id="traffic">
 				<?php
-					if (!empty($settings['traffic.map']))     echo '<img class="map"     src="' . $settings['traffic.map']     . '"/>';
-					if (!empty($settings['traffic.overlay'])) echo '<img class="overlay" src="' . $settings['traffic.overlay'] . '"/>';
+					$trafficStyle = '';
+					if (!empty($settings['traffic.width']))  $trafficStyle .= 'width: '  . $settings['traffic.width']  . ';';
+					if (!empty($settings['traffic.height'])) $trafficStyle .= 'height: ' . $settings['traffic.height'] . ';'; 
+					
+					if (!empty($settings['traffic.map']))     echo '<img class="map"     src="' . $settings['traffic.map']     . '" style="' . $trafficStyle .'"/>';
+					if (!empty($settings['traffic.overlay'])) echo '<img class="overlay" src="' . $settings['traffic.overlay'] . '" style="' . $trafficStyle .'"/>';
 				?>	
 			</div>
 			<div id="weather">
 				<?php
-					if (!empty($settings['weather.map']))     echo '<img class="map"     src="' . $settings['weather.map']     . '"/>';
-					if (!empty($settings['weather.overlay'])) echo '<img class="overlay" src="' . $settings['weather.overlay'] . '"/>';
+					$weatherStyle = '';
+					if (!empty($settings['weather.width']))  $weatherStyle .= 'width: '  . $settings['weather.width']  . ';';
+					if (!empty($settings['weather.height'])) $weatherStyle .= 'height: ' . $settings['weather.height'] . ';';
+					
+					if (!empty($settings['weather.map']))     echo '<img class="map"     src="' . $settings['weather.map']     . '" style="' . $weatherStyle .'"/>';
+					if (!empty($settings['weather.overlay'])) echo '<img class="overlay" src="' . $settings['weather.overlay'] . '" style="' . $weatherStyle .'"/>';
 				?>	
 			</div>
 			<div id="about">
@@ -140,6 +148,7 @@ require_once("init.php");
 					foreach ($settings['webcams.cams'] as $nr => $cam)
 					{
 						$styleDiv='';
+						$styleImage='';
 						
 						foreach($styleDivAllowed as $element) 
 						{
