@@ -9,7 +9,7 @@ Features:
  - Slick animations
 
 Installation instructions:
- - Set up a webserver (apache or WAMP or whatever)
+ - Set up a webserver (apache or WAMP or whatever), make sure that PHP has enough memory and that you have the GD library installed!
  - Copy user/config.php.default to user/config.php and adjust it to your preferences
  - Make sure that the cache directory is writeable (sudo chmod -R 0777 cache)
  - Set the right path in index.xul
@@ -28,7 +28,7 @@ Notes:
  - The animations can be quite heavy for slow machines, you can disable them in the config
  - About message can also be hidden using the config
  - In 13-01-2010 the name was changed from Photogenix to Photoframed, to prevent confusion with the original branch
- 
+
 Credits:
  - Tommy van der Vorst
  - Jan Paul Posma
@@ -36,3 +36,10 @@ Credits:
  
 License:
  - This software is licensed under the GPLv3, see the LICENSE file
+
+If you like this software, please send a nice postcard to:
+  Jan Paul Posma
+  J.A. Feithstraat 9b
+  9725AL Groningen
+  The Netherlands
+

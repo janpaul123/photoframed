@@ -188,6 +188,7 @@ img {
 	background-color          : #151515;
 	border-radius             : 20px;
 	-moz-border-radius        : 20px;
+	-webkit-border-radius     : 20px;
 	display                   : none;
 	cursor                    : auto;
 }
@@ -223,6 +224,7 @@ img {
 	background-color          : #151515;
 	border-radius             : 20px;
 	-moz-border-radius        : 20px;
+	-webkit-border-radius     : 20px;
 	display                   : none;
 	padding                   : 10px;
 	cursor                    : auto;
@@ -271,6 +273,7 @@ img {
 	height                    : 100%;
 	border-radius             : 10px;
 	-moz-border-radius        : 10px;
+	-webkit-border-radius     : 10px;
 	background-color          : #151515;
 	opacity                   : 0.8;
 	z-index                   : -1;
@@ -315,5 +318,6 @@ img {
 	z-index                   : 4;
 	border-radius             : 10px;
 	-moz-border-radius        : 10px;
+	-webkit-border-radius     : 10px;
 	display                   : none;
 }
