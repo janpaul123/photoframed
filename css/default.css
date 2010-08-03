@@ -100,6 +100,21 @@ img {
 
 #quotes li {
 	font-size                 : 11px;
+	margin-left               : 0px;
+	list-style-position       : none;
+	text-indent               : -10px;
+	padding-left              : 10px;
+}
+
+#quotes .nowrap li {
+	width                     : 270px;
+	overflow                  : hidden;
+	white-space               : nowrap;
+	text-overflow             : ellipsis;
+}
+
+#quotes li:before {
+	content                   : "\2022\0020";
 }
 
 /* to combine with #bar .holder */

@@ -279,6 +279,9 @@ var PhotoFrame = new function () {
 					}, 150);
 				}
 				
+				// set text overflow ellipsis using the plugin, for browsers like Firefox
+				$('#quotes .nowrap li').textOverflow('...');
+				
 				// clean up
 				$newQuote = undefined;
 			}, 200);

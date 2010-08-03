@@ -26,6 +26,7 @@ require_once("init.php");
 		<link rel="stylesheet" href="css/default.css?<?php echo $version;?>" type="text/css" />
 		
 		<script type="text/javascript" src="js/jquery-1.4.min.js?<?php echo $version;?>"></script>
+		<script type="text/javascript" src="js/jquery.text-overflow.min.js?<?php echo $version;?>"></script>
 		<script type="text/javascript" src="js/PhotoFrame.js?<?php echo $version;?>"></script>
 		
 		<script type="text/javascript">

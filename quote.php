@@ -93,7 +93,8 @@ $lists = array_chunk($dataArray, isset($feed['listcount']) ? $feed['listcount'] 
 foreach ($lists as $list) 
 {
 	$customWidth = (isset($feed['width']) ? ' style="width: ' . $feed['width'] . '"' : '');
-	echo('<div class="holder quote"' . $customWidth . '><div class="center">');
+	$noWrap = (isset($feed['nowrap']) && $feed['nowrap'] ? ' nowrap' : '');
+	echo('<div class="holder quote' . $noWrap . '"' . $customWidth . '><div class="center">');
 	echo('<ul>');
 	foreach ($list as $item)
 	{

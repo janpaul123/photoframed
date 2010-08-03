@@ -4,6 +4,7 @@ Features:
  - Photos
  - XML feeds
  - Traffic map
+ - Weather map
  - Webcams
  - Clock
  - Slick animations
@@ -30,9 +31,11 @@ Notes:
  - In 13-01-2010 the name was changed from Photogenix to Photoframed, to prevent confusion with the original branch
 
 Credits:
- - Tommy van der Vorst
- - Jan Paul Posma
+ - Original script: Tommy van der Vorst
  - Icons: http://www.famfamfam.com/lab/icons/silk/
+ - jQuery: http://jquery.com/
+ - jQuery Text Overflow Plugin: http://www.bramstein.com/projects/text-overflow/
+ 
  
 License:
  - This software is licensed under the GPLv3, see the LICENSE file

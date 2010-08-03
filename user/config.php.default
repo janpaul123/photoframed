@@ -94,15 +94,18 @@ $settings['connection.url']            = 'http://www.nu.nl/images/logo_nu_nl.gif
 // required settings are 'url' (rss feed itself), 'cache' (filename) and 'logo' (path to image)
 // optionally you can use 'all' (description instad of title), 'listcount' (items in one list), 'width'
 // and also 'adexp' for identifying ads with a regular expression (http://php.net/manual/en/function.preg-match.php)
+// with 'nowrap' to true, you get items no longer than one line, if longer '...' is appended
 $settings['rss.feeds'][]               = array(
                                                'url'        => 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen', 
                                                'cache'      => 'nu.nl.xml', 
                                                'logo'       => 'user/feedpics/nu.nl.png',
+                                               'nowrap'     => true,
                                               );
 $settings['rss.feeds'][]               = array(
                                                'url'        => 'http://feeds.feedburner.com/tweakers/mixed', 
                                                'cache'      => 'tweakers.net.xml', 
                                                'logo'       => 'user/feedpics/tweakers.net.png',
+                                               'nowrap'     => true,
                                                'adexp'      => '/^ADV:/i',
                                               );
 $settings['rss.feeds'][]               = array(
